@@ -909,6 +909,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         addNavigationBar();
         addGestureAnywhereView();
+        addAppCircleSidebar();
 
         // Status bar settings observer
         SettingsObserver observer = new SettingsObserver(mHandler);
