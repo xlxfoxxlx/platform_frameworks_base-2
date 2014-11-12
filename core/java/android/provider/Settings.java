@@ -4692,8 +4692,13 @@ public final class Settings {
         public static final String LOCKSCREEN_INDICATION_TEXT_COLOR = "lockscreen_indication_text_color";
 
         /**
+         * Enable/Disable screenshot sound
+         * @hide
+         */
+        public static final String SCREENSHOT_SOUND = "screenshot_sound";
+
+        /**
          * Change the color of the lockscreen clock
-         *
          * @hide
          */
         public static final String LOCKSCREEN_CLOCK_COLOR = "lockscreen_clock_color";
