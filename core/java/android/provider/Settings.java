@@ -3580,6 +3580,54 @@ public final class Settings {
         public static final String STATUS_BAR_BATTERY_STATUS_ICON_INDICATOR = "status_bar_battery_status_icon_indicator";
 
         /**
+         * The OpenCNAM paid account ID
+         * @hide
+         */
+        public static final String DIALER_OPENCNAM_ACCOUNT_SID = "dialer_opencnam_account_sid";
+
+        /**
+         * The OpenCNAM authentication token
+         * @hide
+         */
+        public static final String DIALER_OPENCNAM_AUTH_TOKEN = "dialer_opencnam_auth_token";
+
+        /**
+         * Enable looking up of phone numbers of nearby places
+         * @hide
+         */
+        public static final String ENABLE_FORWARD_LOOKUP = "enable_forward_lookup";
+
+        /**
+         * Enable looking up of phone numbers of people
+         * @hide
+         */
+        public static final String ENABLE_PEOPLE_LOOKUP = "enable_people_lookup";
+
+        /**
+         * Enable looking up of information of phone numbers not in the contacts
+         * @hide
+         */
+        public static final String ENABLE_REVERSE_LOOKUP = "enable_reverse_lookup";
+
+        /**
+         * The forward lookup provider
+         * @hide
+         */
+        public static final String FORWARD_LOOKUP_PROVIDER = "forward_lookup_provider";
+
+        /**
+         * The people lookup provider
+         * @hide
+         */
+        public static final String PEOPLE_LOOKUP_PROVIDER = "people_lookup_provider";
+
+        /**
+         * The reverse lookup provider
+         * @hide
+         */
+        public static final String REVERSE_LOOKUP_PROVIDER = "reverse_lookup_provider";
+
+        /**
          *  Weather to show the battery status text on the status bar
          * @hide
          */
@@ -3691,6 +3739,7 @@ public final class Settings {
          * @hide
          */
         public static final String INCREASING_RING_START_VOLUME = "increasing_ring_start_vol";
+
 
         /**
          * Ramp up time (seconds) for increasing ring
