@@ -2330,4 +2330,6 @@
          automatically try to pair with it when the device exits tablet mode. -->
     <string translatable="false" name="config_packagedKeyboardName"></string>
 
+    <!-- Sets whether IME switcher on statusbar should be shown or not. -->
+	<bool name="config_show_IMESwitcher">true</bool>
 </resources>
