@@ -400,11 +400,6 @@ public class QsTuner extends PreferenceFragment implements Callback {
         }
 
         @Override
-        public boolean supportsDualTargets() {
-            return "wifi".equals(mSpec) || "bt".equals(mSpec);
-        }
-
-        @Override
         public void setListening(boolean listening) {
         }
 
