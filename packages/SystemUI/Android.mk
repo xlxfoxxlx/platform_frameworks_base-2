@@ -14,6 +14,10 @@ LOCAL_STATIC_JAVA_LIBRARIES := Keyguard \
 
 LOCAL_JAVA_LIBRARIES := telephony-common org.dirtyunicorns.utils
 
+LOCAL_STATIC_JAVA_LIBRARIES := Keyguard \
+    android-support-v7-palette \
+    android-support-v4
+
 LOCAL_PACKAGE_NAME := SystemUI
 LOCAL_CERTIFICATE := platform
 LOCAL_PRIVILEGED_MODULE := true
