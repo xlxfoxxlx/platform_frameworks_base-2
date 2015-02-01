@@ -202,6 +202,7 @@ public class QsTuner extends PreferenceFragment implements Callback {
         else if (spec.equals("cast")) return R.string.quick_settings_cast_title;
         else if (spec.equals("hotspot")) return R.string.quick_settings_hotspot_label;
         else if (spec.equals("timeout")) return R.string.quick_settings_timeout_label;
+        else if (spec.equals("usb_tether")) return R.string.quick_settings_usb_tether_label;
         return 0;
     }
 
@@ -446,6 +447,7 @@ public class QsTuner extends PreferenceFragment implements Callback {
             else if (mSpec.equals("cast")) return R.drawable.ic_qs_cast_on;
             else if (mSpec.equals("hotspot")) return R.drawable.ic_hotspot_enable;
             else if (mSpec.equals("timeout")) return R.drawable.ic_qs_screen_timeout_vector;
+            else if (mSpec.equals("usb_tether")) return R.drawable.ic_qs_usb_tether_off;
             return R.drawable.android;
         }
 
