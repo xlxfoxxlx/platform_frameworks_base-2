@@ -4578,6 +4578,12 @@ public final class Settings {
          */
         public static final String STATUS_BAR_KRONIC_LOGO = "status_bar_kronic_logo";
 
+	    /**
+         * show the membar in recents
+         *  @hide
+         */
+        public static final String SYSTEMUI_RECENTS_MEM_DISPLAY = "systemui_recents_mem_display";
+
         /**
          * Whether to show or hide the Settings Shortcut
          * @hide
