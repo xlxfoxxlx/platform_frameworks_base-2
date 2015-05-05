@@ -164,4 +164,5 @@
     <string name="quick_settings_expanded_desktop">Expanded</string>
     <string name="quick_settings_expanded_desktop_off">Normal</string>
 
+    <string name="gestures_message">Draw your gesture here</string>
 </resources>
