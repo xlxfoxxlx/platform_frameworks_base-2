@@ -3957,6 +3957,12 @@ public final class Settings {
         public static final String RECENT_SHOW_RUNNING_TASKS = "show_running_tasks";
 
         /**
+         * Whether the notification light will be allowed when in zen mode during downtime
+         * @hide
+         */
+        public static final String ALLOW_LIGHTS = "allow_lights";
+
+        /**
          * Amount of apps to show in recents
          * @hide
          */
@@ -4163,7 +4169,8 @@ public final class Settings {
             VIBRATE_WHEN_RINGING,
             RINGTONE,
             LOCK_TO_APP_ENABLED,
-            NOTIFICATION_SOUND
+            NOTIFICATION_SOUND,
+            ALLOW_LIGHTS
         };
 
         /**
