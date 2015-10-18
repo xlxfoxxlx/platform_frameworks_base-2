@@ -696,6 +696,13 @@ final class DefaultPermissionGrantPolicy {
                 grantRuntimePermissionsLPw(conpro2Package, CONTACTS_PERMISSIONS, true, userId);
                 grantRuntimePermissionsLPw(conpro2Package, STORAGE_PERMISSIONS, true, userId);
             }
+
+            // Chromium
+            PackageParser.Package chromiumPackage = getDefaultProviderAuthorityPackageLPr(
+                    "org.chromium.chrome", userId);
+            if (chromiumPackage != null) {
+                grantRuntimePermissionsLPw(chromiumPackage, CONTACTS_PERMISSIONS, userId);
+            }
             mService.mSettings.onDefaultRuntimePermissionsGrantedLPr(userId);
         }
     }
