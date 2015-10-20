@@ -3447,6 +3447,16 @@ public final class Settings {
        public static final String USB_DATA_AUTO_UNLOCK = "usb_data_auto_unlock";
 
         /**
+         * Colors used for the color picker panel puttons
+         * 0: DarkKat colors
+         * 1: Material colors
+         * 2: RGB colors
+         * default: 0
+         * @hide
+         */
+        public static final String COLOR_PICKER_PALETTE = "color_picker_palette";
+
+        /**
          * Whether to prevent loud volume levels when headset is first plugged in.
          * @hide
          */

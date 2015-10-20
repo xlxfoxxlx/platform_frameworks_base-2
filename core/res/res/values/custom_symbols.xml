@@ -17,6 +17,8 @@
 -->
 <resources>
 
+  <java-symbol type="color" name="darkkat_blue_grey" />
+
   <!-- Config Power Menu -->
   <java-symbol type="array" name="shutdown_reboot_actions" />
   <java-symbol type="array" name="shutdown_reboot_options" />
