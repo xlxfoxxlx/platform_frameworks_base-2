@@ -57,6 +57,7 @@ public class KeyguardStatusBarView extends RelativeLayout
     private boolean mKeyguardUserSwitcherShowing;
     private boolean mBatteryListening;
 
+    private CarrierText mCarrierLabel;
     private View mSystemIconsSuperContainer;
     private SignalClusterView mSignalCluster;
     private MultiUserSwitch mMultiUserSwitch;

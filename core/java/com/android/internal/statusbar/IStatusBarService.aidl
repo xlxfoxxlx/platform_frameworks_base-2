@@ -88,6 +88,6 @@ interface IStatusBarService
      *        bar caused by this app transition in millis
      */
     void appTransitionStarting(long statusBarAnimationsStartTime, long statusBarAnimationsDuration);
-
     void startAssist(in Bundle args);
+    void setAutoRotate(boolean enabled);
 }
