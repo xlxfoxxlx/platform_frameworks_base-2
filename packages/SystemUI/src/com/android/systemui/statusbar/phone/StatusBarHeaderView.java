@@ -408,6 +408,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         } else {
             mBatteryController.removeStateChangedCallback(this);
             mNextAlarmController.removeStateChangedCallback(this);
+            mSettingsObserver.observe();
         }
     }
 

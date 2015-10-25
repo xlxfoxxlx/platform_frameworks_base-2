@@ -128,4 +128,5 @@
 
     <!-- Screen timeout tile -->
     <string name="quick_settings_screen_off">Screen off</string>
+   
 </resources>
