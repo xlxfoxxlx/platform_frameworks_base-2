@@ -441,4 +441,36 @@ public class Clock extends TextView implements DemoMode {
         }
     }
 
+<<<<<<< HEAD
+=======
+    private ValueAnimator createColorTransitionAnimator(float start, float end) {
+        ValueAnimator animator = ValueAnimator.ofFloat(start, end);
+
+        animator.setDuration(500);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
+            @Override public void onAnimationUpdate(ValueAnimator animation) {
+                float position = animation.getAnimatedFraction();
+                int blended = ColorHelper.getBlendColor(mOldColor, mNewColor, position);
+                setTextColor(blended);
+            }
+        });
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mOldColor = mNewColor;
+            }
+        });
+        return animator;
+    }
+
+    public int getColor() {
+        return mNewColor;
+    }
+
+    public int getColorDarkMode() {
+        return Settings.System.getIntForUser(mResolver,
+                Settings.System.STATUS_BAR_CLOCK_DATE_COLOR_DARK_MODE,
+                0x99000000, UserHandle.USER_CURRENT);
+    }
+>>>>>>> 5335232... Status bar colors: Add dark mode color, (1/2):
 }
