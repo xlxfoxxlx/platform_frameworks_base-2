@@ -553,13 +553,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.STATUS_BAR_CARRIER_LABEL_HIDE_LABEL))
                 || uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CARRIER_LABEL_NUMBER_OF_NOTIFICATION_ICONS))) {
-                setCarrierLabelVisibility();
+                updateCarrierLabelVisibility();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CARRIER_LABEL_SHOW_ON_LOCK_SCREEN))) {
-                setLockScreenCarrierLabelVisibility();
+                updateLockScreenCarrierLabelVisibility();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CARRIER_LABEL_COLOR))) {
-                updateCarrierLabelColor();
+                updateCarrierLabelColor(true);
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_BATTERY_STATUS_SHOW_BATTERY))) {
                 updateBatteryVisibility();
@@ -1141,6 +1141,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mStatusBarHeaderMachine.updateEnablement();
         setCarrierLabelVisibility();
         setLockScreenCarrierLabelVisibility();
+        updateCarrierLabel();
         updateBattery();
         updateNetworkIconColors();
         return mStatusBarView;
@@ -1648,7 +1649,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         updateNotificationShade();
         mIconController.updateNotificationIcons(mNotificationData);
-        setCarrierLabelVisibility();
+        updateCarrierLabelVisibility();
     }
 
     @Override
@@ -1974,23 +1975,29 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private void updateCarrierLabel() {
         if (!DeviceUtils.deviceSupportsMobileData(mContext)) {
-            if (mStatusBarCarrierLabel != null) {
-                mStatusBarCarrierLabel.setVisibility(View.GONE);
-            }
+            mStatusBarCarrierLabel.setVisibility(View.GONE);
             return;
         }
-        if (mKeyguardStatusBar != null) {
-            mKeyguardStatusBar.updateCarrierLabel();
+        updateCarrierLabelVisibility();
+        updateLockScreenCarrierLabelVisibility();
+        updateCarrierLabelColor(false);
+    }
+
+    private void updateCarrierLabelSettings() {
+        if (!DeviceUtils.deviceSupportsMobileData(mContext)) {
+            return;
         }
         if (mStatusBarCarrierLabel != null) {
             mStatusBarCarrierLabel.updateCarrierLabelSettings();
             mStatusBarCarrierLabel.updateCarrierText();
         }
+        if (mKeyguardStatusBar != null) {
+            mKeyguardStatusBar.updateCarrierLabel();
+        }
     }
 
-    private void setCarrierLabelVisibility() {
+    private void updateCarrierLabelVisibility() {
         if (!DeviceUtils.deviceSupportsMobileData(mContext)) {
-            mStatusBarCarrierLabel.setVisibility(View.GONE);
             return;
         }
 
@@ -2019,7 +2026,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     }
 
-    private void setLockScreenCarrierLabelVisibility() {
+    private void updateLockScreenCarrierLabelVisibility() {
         if (!DeviceUtils.deviceSupportsMobileData(mContext)) {
             return;
         }
@@ -2027,19 +2034,19 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mContext.getContentResolver(),
                 Settings.System.STATUS_BAR_CARRIER_LABEL_SHOW_ON_LOCK_SCREEN, 1) == 1;
         if (mKeyguardStatusBar != null) {
-            mKeyguardStatusBar.setCarrierLabelVisibility(showOnLockScreen);
+            mKeyguardStatusBar.updateCarrierLabelVisibility(showOnLockScreen);
         }
     }
 
-    private void updateCarrierLabelColor() {
+    private void updateCarrierLabelColor(boolean animate) {
         if (!DeviceUtils.deviceSupportsMobileData(mContext)) {
             return;
         }
         final boolean show = Settings.System.getInt(
                 mContext.getContentResolver(),
                 Settings.System.STATUS_BAR_CARRIER_LABEL_SHOW, 0) == 1;
-        if (mStatusBarCarrierLabel != null) {
-            mStatusBarCarrierLabel.updateColor(show ? true : false);
+        if (mIconController != null) {
+            mIconController.updateCarrierLabelColor(animate && show ? true : false);
         }
         if (mKeyguardStatusBar != null) {
             mKeyguardStatusBar.updateCarrierLabelColor();
