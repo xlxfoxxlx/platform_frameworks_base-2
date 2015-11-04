@@ -98,7 +98,6 @@ public class StatusBarIconController implements Tunable {
     private int mIconSize;
     private int mIconHPadding;
 
-    private int mIconTint = Color.WHITE;
     private int mStatusIconsColor;
     private int mStatusIconsColorOld;
     private int mStatusIconsColorTint;
@@ -129,6 +128,8 @@ public class StatusBarIconController implements Tunable {
     private int mAirplaneModeColor;
     private int mAirplaneModeColorOld;
     private int mAirplaneModeColorTint;
+    private int mNotificationIconsColor;
+    private int mNotificationIconsColorTint;
     private float mDarkIntensity;
 
     private boolean mTransitionPending;
@@ -236,6 +237,8 @@ public class StatusBarIconController implements Tunable {
         mAirplaneModeColor = StatusBarColorHelper.getAirplaneModeColor(mContext);
         mAirplaneModeColorOld = mAirplaneModeColor;
         mAirplaneModeColorTint = mAirplaneModeColor;
+        mNotificationIconsColor = StatusBarColorHelper.getNotificationIconsColor(mContext);
+        mNotificationIconsColorTint = mNotificationIconsColor;
 
         mColorTransitionAnimator = createColorTransitionAnimator(0, 1);
     }
@@ -510,8 +513,6 @@ public class StatusBarIconController implements Tunable {
 
     private void setIconTintInternal(float darkIntensity) {
         mDarkIntensity = darkIntensity;
-        mIconTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
-                mLightModeIconColorSingleTone, mDarkModeIconColorSingleTone);
         mStatusIconsColorTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
                 mStatusIconsColor, StatusBarColorHelper.getStatusIconsColorDark(mContext));
         if (DeviceUtils.deviceSupportsMobileData(mContext)) {
@@ -534,6 +535,8 @@ public class StatusBarIconController implements Tunable {
                 mNoSimColor, StatusBarColorHelper.getNoSimColorDark(mContext));
         mAirplaneModeColorTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
                 mAirplaneModeColor, StatusBarColorHelper.getAirplaneModeColorDark(mContext));
+        mNotificationIconsColorTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
+                mNotificationIconsColor, StatusBarColorHelper.getNotificationIconsColorDark(mContext));
 
         applyIconTint();
     }
@@ -556,8 +559,8 @@ public class StatusBarIconController implements Tunable {
         if (DeviceUtils.deviceSupportsMobileData(mContext)) {
             mStatusBarCarrierLabel.setTextColor(mCarrierLabelColorTint);
         }
-        mMoreIcon.setImageTintList(ColorStateList.valueOf(mIconTint));
         mClock.setTextColor(mIconTint);
+        mMoreIcon.setImageTintList(ColorStateList.valueOf(mNotificationIconsColorTint));
         mBatteryMeterView.setBatteryColor(mBatteryFrameColorTint, mBatteryColorTint);
         mBatteryMeterView.setBatteryTextColor(mBatteryTextColorTint);
         mNetworkTraffic.setTextColor(mNetworkTrafficTextColorTint);
@@ -571,7 +574,7 @@ public class StatusBarIconController implements Tunable {
             boolean isPreL = Boolean.TRUE.equals(v.getTag(R.id.icon_is_pre_L));
             boolean colorize = !isPreL || isGrayscale(v);
             if (colorize) {
-                v.setImageTintList(ColorStateList.valueOf(mIconTint));
+                v.setImageTintList(ColorStateList.valueOf(mNotificationIconsColorTint));
             }
         }
     }
@@ -886,5 +889,19 @@ public class StatusBarIconController implements Tunable {
         mAirplaneModeColor = StatusBarColorHelper.getAirplaneModeColor(mContext);
         mColorToChange = AIRPLANE_MODE_COLOR;
         mColorTransitionAnimator.start();
+    }
+
+    public void updateNotificationIconsColor() {
+        mNotificationIconsColor = StatusBarColorHelper.getNotificationIconsColor(mContext);
+        mNotificationIconsColorTint = mNotificationIconsColor;
+        for (int i = 0; i < mNotificationIcons.getChildCount(); i++) {
+            StatusBarIconView v = (StatusBarIconView) mNotificationIcons.getChildAt(i);
+            boolean isPreL = Boolean.TRUE.equals(v.getTag(R.id.icon_is_pre_L));
+            boolean colorize = !isPreL || isGrayscale(v);
+            if (colorize) {
+                v.setImageTintList(ColorStateList.valueOf(mNotificationIconsColor));
+            }
+        }
+        mMoreIcon.setImageTintList(ColorStateList.valueOf(mNotificationIconsColor));
     }
 }
