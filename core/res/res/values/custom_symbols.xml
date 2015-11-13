@@ -197,4 +197,7 @@
   <java-symbol type="id" name="dexopt_message" />
   <java-symbol type="id" name="dexopt_message_detail" />
   <java-symbol type="id" name="dexopt_progress" />
+
+  <!-- Vendor warning -->
+  <java-symbol type="string" name="system_error_vendorprint" />
 </resources>
