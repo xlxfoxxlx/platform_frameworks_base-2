@@ -4095,7 +4095,6 @@ public final class Settings {
 
         /**
          * Recent panel: Show topmost task
-         *
          * @hide
          */
         public static final String RECENT_PANEL_SHOW_TOPMOST = "recent_panel_show_topmost";
@@ -4155,6 +4154,12 @@ public final class Settings {
          * @hide
          */
         public static final String RECENT_APP_SIDEBAR_SCALE_FACTOR = "recent_app_sidebar_scale_factor";
+
+        /**
+         * Whether national data roaming should be used.
+         * @hide
+         */
+        public static final String MVNO_ROAMING = "mvno_roaming";
 
         /**  
          * AOKP Custom System Animations
