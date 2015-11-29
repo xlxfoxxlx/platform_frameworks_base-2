@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
-import android.database.ContentObserver;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -45,7 +44,6 @@ public class BatteryMeterView extends View implements DemoMode,
         BatteryController.BatteryStateChangeCallback {
     public static final String TAG = BatteryMeterView.class.getSimpleName();
     public static final String ACTION_LEVEL_TEST = "com.android.systemui.BATTERY_LEVEL_TEST";
-    public static final String SHOW_PERCENT_SETTING = "status_bar_show_battery_percent";
 
     private static final int FULL = 96;
     private static final boolean SINGLE_DIGIT_PERCENT = false;
@@ -66,7 +64,6 @@ public class BatteryMeterView extends View implements DemoMode,
     private final int mCriticalLevel;
     private final String mWarningString;
 
-    private boolean mIgnoreSystemUITuner = false;
     private boolean mShowPercent;
     private boolean mCutOutText = true;
 
@@ -95,7 +92,6 @@ public class BatteryMeterView extends View implements DemoMode,
 
     private final BatteryTracker mTracker;
     private final BatteryTracker mDemoTracker;
-    private final SettingObserver mSettingObserver;
     private final Handler mHandler;
 
     private BatteryController mBatteryController;
@@ -193,23 +189,6 @@ public class BatteryMeterView extends View implements DemoMode,
         }
     }
 
-    private final class SettingObserver extends ContentObserver {
-        public SettingObserver() {
-            super(new Handler());
-        }
-
-        @Override
-        public void onChange(boolean selfChange, Uri uri) {
-            super.onChange(selfChange, uri);
-            if (!mIgnoreSystemUITuner) {
-                updateShowPercent();
-                if (!mIsAnimating) {
-                    postInvalidate();
-                }
-            }
-        }
-    }
-
     private final Runnable mInvalidate = new Runnable() {
         public void run() {
             invalidateIfVisible();
@@ -230,7 +209,6 @@ public class BatteryMeterView extends View implements DemoMode,
         final Resources res = context.getResources();
         mTracker = new BatteryTracker();
         mDemoTracker = new BatteryTracker();
-        mSettingObserver = new SettingObserver();
         mHandler = new Handler();
 
         mFrameColor = (77 << 24) | (mFillColor & 0x00ffffff);
@@ -247,7 +225,6 @@ public class BatteryMeterView extends View implements DemoMode,
         mSubpixelSmoothingRight = res.getFraction(
                 R.fraction.battery_subpixel_smoothing_right, 1, 1);
 
-        updateShowPercent();
         mBatteryMeterDrawable = createBatteryMeterDrawable(mBatteryMeterMode);
     }
 
@@ -278,8 +255,6 @@ public class BatteryMeterView extends View implements DemoMode,
             mTracker.onReceive(getContext(), sticky);
         }
         mBatteryController.addStateChangedCallback(this);
-        getContext().getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(SHOW_PERCENT_SETTING), false, mSettingObserver);
         mAttached = true;
     }
 
@@ -290,7 +265,6 @@ public class BatteryMeterView extends View implements DemoMode,
         mAttached = false;
         getContext().unregisterReceiver(mTracker);
         mBatteryController.removeStateChangedCallback(this);
-        getContext().getContentResolver().unregisterContentObserver(mSettingObserver);
     }
 
     @Override
@@ -390,17 +364,7 @@ public class BatteryMeterView extends View implements DemoMode,
         }
     }
 
-    private void updateShowPercent() {
-        if (!mIgnoreSystemUITuner) {
-            mShowPercent = 0 != Settings.System.getInt(getContext().getContentResolver(),
-                    SHOW_PERCENT_SETTING, 0);
-        }
-    }
-
     public void setTextVisibility(boolean show) {
-        if (!mIgnoreSystemUITuner) {
-            mIgnoreSystemUITuner = true;
-        }
         mShowPercent = show;
         if (!mIsAnimating) {
             invalidateIfVisible();

@@ -45,7 +45,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 public class TunerService extends SystemUI {
 
     public static final String ACTION_CLEAR = "com.android.systemui.action.CLEAR_TUNER";
@@ -135,7 +134,6 @@ public class TunerService extends SystemUI {
     public void clearAll() {
         // A couple special cases.
         Settings.Global.putString(mContentResolver, DemoMode.DEMO_MODE_ALLOWED, null);
-        Settings.System.putString(mContentResolver, BatteryMeterView.SHOW_PERCENT_SETTING, null);
         Intent intent = new Intent(DemoMode.ACTION_DEMO);
         intent.putExtra(DemoMode.EXTRA_COMMAND, DemoMode.COMMAND_EXIT);
         mContext.sendBroadcast(intent);
@@ -181,10 +179,7 @@ public class TunerService extends SystemUI {
                 // Tell the tuner (in main SysUI process) to clear all its settings.
                 context.sendBroadcast(new Intent(TunerService.ACTION_CLEAR));
                 // Disable access to tuner.
-                //TunerService.setTunerEnabled(context, false);
-                // Make them sit through the warning dialog again.
-                Settings.Secure.putInt(context.getContentResolver(),
-                        TunerFragment.SETTING_SEEN_TUNER_WARNING, 0);
+                TunerService.setTunerEnabled(context, false);
                 if (onDisabled != null) {
                     onDisabled.run();
                 }
@@ -193,8 +188,27 @@ public class TunerService extends SystemUI {
         dialog.show();
     }
 
+    public static final void setTunerEnabled(Context context, boolean enabled) {
+        userContext(context).getPackageManager().setComponentEnabledSetting(
+                new ComponentName(context, TunerActivity.class),
+                enabled ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+                        : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP);
+    }
+
     public static final boolean isTunerEnabled(Context context) {
-        return true;
+        return userContext(context).getPackageManager().getComponentEnabledSetting(
+                new ComponentName(context, TunerActivity.class))
+                == PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
+    }
+
+    private static Context userContext(Context context) {
+        try {
+            return context.createPackageContextAsUser(context.getPackageName(), 0,
+                    new UserHandle(ActivityManager.getCurrentUser()));
+        } catch (NameNotFoundException e) {
+            return context;
+        }
     }
 
     private class Observer extends ContentObserver {

@@ -211,7 +211,9 @@ public class StatusBarIconController implements Tunable {
         mLeftClock.setIconController(this);
 
         TunerService.get(mContext).addTunable(this, ICON_BLACKLIST);
-
+        if (!TunerService.isTunerEnabled(mContext)) {
+            TunerService.setTunerEnabled(mContext, true);
+        }
         setUpCustomColors();
     }
 
