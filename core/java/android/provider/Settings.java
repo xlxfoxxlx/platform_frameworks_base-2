@@ -4636,6 +4636,12 @@ public final class Settings {
         public static final String CUSTOM_LOGO_STYLE = "custom_logo_style";
 
         /**
+         * header image package to use for daylight header - package name - null if default
+         * @hide
+         */
+        public static final String STATUS_BAR_DAYLIGHT_HEADER_PACK = "status_bar_daylight_header_pack";
+
+        /**
          *  Enable statusbar double tap gesture on to put device to sleep
          * @hide
          */
