@@ -330,7 +330,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     // expanded notifications
     NotificationPanelView mNotificationPanel; // the sliding/resizing panel within the notification window
     View mExpandedContents;
-    TextView mNotificationPanelDebugText;
+    //TextView mNotificationPanelDebugText;
 
     // Aosip logo
     private boolean mAosipLogo;
@@ -627,7 +627,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_NUM_TILE_COLUMNS), 
                     false, this, UserHandle.USER_ALL);
-		    update();
+            resolver.registerContentObserver(Settings.System.getUriFor(  
+                    Settings.System.STATUS_BAR_HEADER_WEATHER),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_WEATHER_ICON_PACK),
+                    false, this, UserHandle.USER_ALL);
+            update();
         }
 
         @Override
@@ -722,6 +728,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 updateClearAll();
                 updateEmptyShadeView();
 	   }
+            update(); 
         }
 
          public void update() {
@@ -772,9 +779,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mCLogo = (ImageView) mStatusBarView.findViewById(R.id.custom_4);
             }
             showmCustomlogo(mCustomlogo, mCustomlogoColor,  mCustomlogoStyle);
-
+            mHeader.settingsChanged();
+          }
         }
-     }
 
     private int mInteractingWindows;
     private boolean mAutohideSuspended;
@@ -1099,11 +1106,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mNotificationPanel.setHeadsUpManager(mHeadsUpManager);
         mNotificationData.setHeadsUpManager(mHeadsUpManager);
 
-        if (MULTIUSER_DEBUG) {
+        /*if (MULTIUSER_DEBUG) {
             mNotificationPanelDebugText = (TextView) mNotificationPanel.findViewById(
                     R.id.header_debug_info);
             mNotificationPanelDebugText.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         try {
             boolean showNav = mWindowManagerService.hasNavigationBar();
@@ -1569,6 +1576,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private void notifyNavigationBarScreenOn(boolean screenOn) {
         if (mNavigationBarView == null) return;
         mNavigationBarView.notifyScreenOn(screenOn);
+    }
+
+    private void notifyHeaderViewScreenOn(boolean screenOn) {
+        if (mHeader == null) return;
+        mHeader.notifyScreenOn(screenOn);
     }
 
     private WindowManager.LayoutParams getNavigationBarLayoutParams() {
@@ -3506,9 +3518,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 notifyHeadsUpScreenOff();
                 finishBarAnimations();
                 resetUserExpandedStates();
+                notifyHeaderViewScreenOn(false);
             }
             else if (Intent.ACTION_SCREEN_ON.equals(action)) {
                 notifyNavigationBarScreenOn(true);
+                notifyHeaderViewScreenOn(true);
             }
         }
     };
@@ -3638,7 +3652,7 @@ public void showmCustomlogo(boolean show , int color , int style) {
     @Override
     public void userSwitched(int newUserId) {
         super.userSwitched(newUserId);
-        if (MULTIUSER_DEBUG) mNotificationPanelDebugText.setText("USER " + newUserId);
+        //if (MULTIUSER_DEBUG) mNotificationPanelDebugText.setText("USER " + newUserId);
         animateCollapsePanels();
         updatePublicMode();
         updateNotifications();

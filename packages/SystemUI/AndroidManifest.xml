@@ -162,6 +162,9 @@
     <uses-permission android:name="android.permission.REBOOT" />
     <uses-permission android:name="android.permission.RECOVERY" />
 
+    <!-- weather -->
+    <uses-permission android:name="org.omnirom.omnijaws.READ_WEATHER" />
+
     <application
         android:name=".SystemUIApplication"
         android:persistent="true"
@@ -464,13 +467,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".cm.LockscreenShortcutsActivity"
-            android:icon="@drawable/tuner"
-            android:label="@string/lockscreen_targets_message"
-            android:theme="@android:style/Theme.Material.Settings"
-            android:exported="true">
-
        <activity android:name=".DaylightHeaderDefault"
                 android:label="Default" >
             <intent-filter>
@@ -478,5 +474,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".cm.LockscreenShortcutsActivity"
+            android:icon="@drawable/tuner"
+            android:label="@string/lockscreen_targets_message"
+            android:theme="@android:style/Theme.Material.Settings"
+            android:exported="true">
+        </activity>
+
     </application>
 </manifest>
