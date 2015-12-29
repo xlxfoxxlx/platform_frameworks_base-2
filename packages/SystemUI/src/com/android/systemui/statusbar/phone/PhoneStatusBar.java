@@ -47,6 +47,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -331,6 +332,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     View mExpandedContents;
     TextView mNotificationPanelDebugText;
 
+    // Aosip logo
+    private boolean mAosipLogo;
+    private int mAosipLogoColor;
+    private ImageView aosipLogo;
+
     // settings
     private QSPanel mQSPanel;
     private QSTileHost mQSTileHost;
@@ -588,6 +594,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_SECURITY_ALPHA),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_AOSIP_LOGO),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_AOSIP_LOGO_COLOR),
+                    false, this, UserHandle.USER_ALL);
+            update();
         }
 
         @Override
@@ -1096,6 +1109,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         mIconController = new StatusBarIconController(
                 mContext, mStatusBarView, mKeyguardStatusBar, this);
+
+             ContentResolver resolver = mContext.getContentResolver();
+            mAosipLogo = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_AOSIP_LOGO, 0, mCurrentUserId) == 1;
+            mAosipLogoColor = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_AOSIP_LOGO_COLOR, 0xFFFFFFFF, mCurrentUserId);
+            showAosipLogo(mAosipLogo, mAosipLogoColor);
 
         // Background thread for any controllers that need it.
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
@@ -3409,6 +3429,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     };
 
+    public void showAosipLogo(boolean show, int color) {
+        if (mStatusBarView == null) return;
+        aosipLogo = (ImageView) mStatusBarView.findViewById(R.id.aosip_logo);
+        aosipLogo.setColorFilter(color, Mode.SRC_IN);
+        if (aosipLogo != null) {
+            aosipLogo.setVisibility(show ? (mAosipLogo ? View.VISIBLE : View.GONE) : View.GONE);
+        }
+    }
+
     private void resetUserExpandedStates() {
         ArrayList<Entry> activeNotifications = mNotificationData.getActiveNotifications();
         final int notificationCount = activeNotifications.size();
@@ -4883,3 +4912,4 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     }
 }
+
