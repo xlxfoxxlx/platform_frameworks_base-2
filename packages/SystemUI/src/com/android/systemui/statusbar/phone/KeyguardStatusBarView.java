@@ -43,6 +43,8 @@ import com.android.systemui.statusbar.policy.KeyguardUserSwitcher;
 import com.android.systemui.statusbar.policy.UserInfoController;
 import com.android.systemui.statusbar.policy.UserSwitcherController;
 
+import com.android.internal.util.du.DuUtils;
+
 import java.text.NumberFormat;
 
 /**
@@ -81,6 +83,10 @@ public class KeyguardStatusBarView extends RelativeLayout
         mMultiUserSwitch = (MultiUserSwitch) findViewById(R.id.multi_user_switch);
         mMultiUserAvatar = (ImageView) findViewById(R.id.multi_user_avatar);
         mBatteryLevel = (TextView) findViewById(R.id.battery_level);
+        mCarrierLabel = (CarrierText) findViewById(R.id.keyguard_carrier_text);
+        if (DuUtils.isWifiOnly(getContext())) {
+            mCarrierLabel.setText("");
+        }
         loadDimens();
         mFastOutSlowInInterpolator = AnimationUtils.loadInterpolator(getContext(),
                 android.R.interpolator.fast_out_slow_in);
