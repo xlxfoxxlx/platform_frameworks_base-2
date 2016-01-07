@@ -154,6 +154,8 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     // QS header alpha
     private int mQSHeaderAlpha;
 
+    private UserInfoController mUserInfoController;
+
     public StatusBarHeaderView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -265,6 +267,15 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         mClockCollapsedScaleFactor = (float) mClockCollapsedSize / (float) mClockExpandedSize;
         updateClockScale();
         updateClockCollapsedMargin();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (mUserInfoController != null) {
+            mUserInfoController.removeListener(mUserInfoChangedListener);
+        }
+        setListening(false);
     }
 
     private void updateClockCollapsedMargin() {
@@ -544,13 +555,17 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         invalidateOutline();
     }
 
+    private UserInfoController.OnUserInfoChangedListener mUserInfoChangedListener =
+            new UserInfoController.OnUserInfoChangedListener() {
+        @Override
+        public void onUserInfoChanged(String name, Drawable picture) {
+            mMultiUserAvatar.setImageDrawable(picture);
+        }
+    };
+
     public void setUserInfoController(UserInfoController userInfoController) {
-        userInfoController.addListener(new UserInfoController.OnUserInfoChangedListener() {
-            @Override
-            public void onUserInfoChanged(String name, Drawable picture) {
-                mMultiUserAvatar.setImageDrawable(picture);
-            }
-        });
+        mUserInfoController = userInfoController;
+        userInfoController.addListener(mUserInfoChangedListener);
     }
 
     @Override
