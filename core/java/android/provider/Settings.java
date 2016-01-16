@@ -3642,6 +3642,16 @@ public final class Settings {
         public static final String FINGERPRINT_SUCCESS_VIB = "fingerprint_success_vib";
 
         /**
+         * Immersive recents options
+         * 0 = Default AOSP look
+         * 1 = Statusbar only
+         * 2 = Navbar only
+         * 3 = Fullscreen
+         * @hide
+         */
+        public static final String IMMERSIVE_RECENTS = "immersive_recents";
+
+        /**
          * Color of the Clock and date on the status bar, (dark mode)
          * @hide
          */
@@ -3656,6 +3666,7 @@ public final class Settings {
          * default: 0
          * @hide
          */
+
         public static final String STATUS_BAR_BATTERY_STATUS_ICON_INDICATOR = "status_bar_battery_status_icon_indicator";
 
         /**
