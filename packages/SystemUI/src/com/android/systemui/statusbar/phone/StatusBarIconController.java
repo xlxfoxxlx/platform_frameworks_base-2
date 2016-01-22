@@ -827,7 +827,6 @@ public class StatusBarIconController implements Tunable {
             mColorToChange = STATUS_NETWORK_ICON_COLORS;
             mColorTransitionAnimator.start();
         } else {
-            mSignalCluster.setIgnoreSystemUITuner(true);
             mSignalCluster.setIconTint(
                     mNetworkSignalColor, mNoSimColor, mAirplaneModeColor, mDarkIntensity);
             mStatusIconColorOld = mStatusIconColor;
