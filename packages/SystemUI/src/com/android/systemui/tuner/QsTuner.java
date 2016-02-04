@@ -217,6 +217,7 @@ public class QsTuner extends PreferenceFragment implements Callback {
         else if (spec.equals("sound")) return R.string.quick_settings_sound_label;
         else if (spec.equals("kernel")) return R.string.quick_settings_kernel_adiutor_label;
         else if (spec.equals("adb_network")) return R.string.quick_settings_adb_network;
+        else if (spec.equals("caffeine")) return R.string.quick_settings_caffeine_label;
         return 0;
     }
 
@@ -473,6 +474,7 @@ public class QsTuner extends PreferenceFragment implements Callback {
             else if (mSpec.equals("sound")) return R.drawable.ic_qs_ringer_audible;
             else if (mSpec.equals("kernel")) return R.drawable.ic_qs_kernel;
             else if (mSpec.equals("adb_network")) return R.drawable.ic_qs_network_adb_on;
+            else if (mSpec.equals("caffeine")) return R.drawable.ic_qs_caffeine_on;
             return R.drawable.android;
         }
 
