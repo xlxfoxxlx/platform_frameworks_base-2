@@ -4673,8 +4673,13 @@ public final class Settings {
         public static final String LOCKSCREEN_PHONE_ICON_COLOR = "lockscreen_phone_icon_color";
 
         /**
+         * Whether to show statusbar clock in the keyguard
+         * @hide
+         */
+        public static final String KEYGUARD_SHOW_CLOCK = "keyguard_show_clock";
+
+        /**
          * Change the color of the lockscreen lock icon
-         *
          * @hide
          */
         public static final String LOCKSCREEN_LOCK_ICON_COLOR = "lockscreen_lock_icon_color";

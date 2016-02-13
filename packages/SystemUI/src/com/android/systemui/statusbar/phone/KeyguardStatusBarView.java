@@ -21,6 +21,7 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.UserHandle;
 import android.provider.Settings;
+import android.os.UserHandle;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -64,6 +65,9 @@ public class KeyguardStatusBarView extends RelativeLayout
     private ImageView mMultiUserAvatar;
     private TextView mBatteryLevel;
 
+    private TextView mKeyguardClock;
+    private int mShowKeyguardClock;
+
     private BatteryController mBatteryController;
     private KeyguardUserSwitcher mKeyguardUserSwitcher;
 
@@ -72,8 +76,21 @@ public class KeyguardStatusBarView extends RelativeLayout
 
     private UserInfoController mUserInfoController;
 
+    private ContentObserver mObserver = new ContentObserver(new Handler()) {
+        public void onChange(boolean selfChange, Uri uri) {
+            showKeyguardClock();
+            updateVisibilities();
+        }
+    };
+
     public KeyguardStatusBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        showKeyguardClock();
+    }
+
+    private void showKeyguardClock() {
+        mShowKeyguardClock = Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.KEYGUARD_SHOW_CLOCK, 1, UserHandle.USER_CURRENT);
     }
 
     @Override
@@ -85,6 +102,7 @@ public class KeyguardStatusBarView extends RelativeLayout
         mMultiUserAvatar = (ImageView) findViewById(R.id.multi_user_avatar);
         mBatteryLevel = (TextView) findViewById(R.id.battery_level);
         mCarrierLabel = (CarrierText) findViewById(R.id.keyguard_carrier_text);
+        mKeyguardClock = (TextView) findViewById(R.id.keyguard_clock);
         if (DuUtils.isWifiOnly(getContext())) {
             mCarrierLabel.setText("");
         }
@@ -104,6 +122,9 @@ public class KeyguardStatusBarView extends RelativeLayout
                         com.android.internal.R.dimen.text_size_small_material));
         mBatteryLevel.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.battery_level_text_size));
+        mKeyguardClock.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimensionPixelSize(
+                        com.android.internal.R.dimen.text_size_small_material));
     }
 
     @Override
@@ -128,7 +149,13 @@ public class KeyguardStatusBarView extends RelativeLayout
         } else if (mMultiUserSwitch.getParent() == this && mKeyguardUserSwitcherShowing) {
             removeView(mMultiUserSwitch);
         }
-        updateBatteryLevelVisibility();
+
+        if (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.KEYGUARD_SHOW_CLOCK, 0) == 1) {
+            mKeyguardClock.setVisibility(View.VISIBLE);
+        } else {
+            mKeyguardClock.setVisibility(View.GONE);
+        }
     }
 
     private void updateSystemIconsLayoutParams() {
@@ -276,6 +303,47 @@ public class KeyguardStatusBarView extends RelativeLayout
 
     public void updateBatteryLevelVisibility() {
         mBatteryLevel.setVisibility(showBattery() && mBatteryCharging && !showBatteryText() ? View.VISIBLE : View.GONE);
+    }
+
+    public void updateCarrierLabel() {
+        mCarrierLabel.updateCarrierLabelSettings();
+        mCarrierLabel.updateCarrierText();
+ 
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                "keyguard_show_clock"), false, mObserver);
+    }
+
+    public void setCarrierLabelVisibility(boolean show) {
+        mCarrierLabel.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    public void updateCarrierLabelColor() {
+        mCarrierLabel.updateColor(false);
+    }
+
+    public void updateNetworkIconColors() {
+	mColorSwitch =  Settings.System.getInt(mContext.getContentResolver(),
+				 Settings.System.STATUSBAR_COLOR_SWITCH, 0) == 1;
+	if(mColorSwitch) {
+        mSignalCluster.setIconTint(
+                StatusBarColorHelper.getNetworkSignalColor(mContext),
+                StatusBarColorHelper.getNoSimColor(mContext),
+                StatusBarColorHelper.getAirplaneModeColor(mContext), 0f);
+	 }
+    }
+
+    public void updateNetworkSignalColor() {
+	mColorSwitch =  Settings.System.getInt(mContext.getContentResolver(),
+				 Settings.System.STATUSBAR_COLOR_SWITCH, 0) == 1;
+	if(mColorSwitch) {
+        mSignalCluster.applyNetworkSignalTint(StatusBarColorHelper.getNetworkSignalColor(getContext()));
+	}
+>>>>>>> 948f9f5... Keyguard statusbar clock [1/2]
     }
 
     private boolean showBattery() {
