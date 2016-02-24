@@ -3604,7 +3604,6 @@ public final class Settings {
         public static final String ENABLE_PEOPLE_LOOKUP = "enable_people_lookup";
 
         /**
-         * Enable looking up of information of phone numbers not in the contacts
          * @hide
          */
         public static final String ENABLE_REVERSE_LOOKUP = "enable_reverse_lookup";
@@ -3626,6 +3625,18 @@ public final class Settings {
          * @hide
          */
         public static final String REVERSE_LOOKUP_PROVIDER = "reverse_lookup_provider";
+
+        /**
+         * change lockscreen alpha color
+         * @hide
+         */
+        public static final String LOCKSCREEN_ALPHA = "lockscreen_alpha";
+
+        /**
+         * change lockscreen security alpha color
+         * @hide
+         */
+        public static final String LOCKSCREEN_SECURITY_ALPHA = "lockscreen_security_alpha";
 
         /**
          *  Weather to show the battery status text on the status bar
