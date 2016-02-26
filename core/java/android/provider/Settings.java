@@ -4119,6 +4119,12 @@ public final class Settings {
                 "lockscreen_shortcuts_longpress";
 
         /**
+         * Whether to show switches for wifi/cell/bt in the settings dashboard
+         * @hide
+         */
+        public static final String DASHBOARD_SWITCHES = "dashboard_switches";
+
+        /**
          * Whether to use slim recents
          * @hide
          */
