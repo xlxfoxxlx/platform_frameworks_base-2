@@ -690,8 +690,22 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             if (mScrimController != null) {
                 mScrimController.setSecurityOverlayAlpha(securityoverlayalpha);
             }
+
+            mAosipLogoStyle = Settings.System.getIntForUser(
+                    resolver, Settings.System.STATUS_BAR_AOSIP_LOGO_STYLE, 0,
+                    UserHandle.USER_CURRENT);
+            mAosipLogo = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_AOSIP_LOGO, 0, mCurrentUserId) == 1;
+            mAosipLogoColor = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_AOSIP_LOGO_COLOR, 0xFFFFFFFF, mCurrentUserId);
+            if (mAosipLogoStyle == 0) {
+                AosipLogo = (ImageView) mStatusBarView.findViewById(R.id.left_Aosip_logo);
+            } else {
+                AosipLogo = (ImageView) mStatusBarView.findViewById(R.id.Aosip_logo);
+            }
+            showAosipLogo(mAosipLogo, mAosipLogoColor, mAosipLogoStyle);
         }
-    }
+     }
 
     private int mInteractingWindows;
     private boolean mAutohideSuspended;
