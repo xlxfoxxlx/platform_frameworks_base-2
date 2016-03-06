@@ -338,6 +338,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private ImageView aosipLogo;
     private int mAosipLogoStyle;
 
+    // Custom Logos
+
+    private boolean mCustomlogo;
+    private ImageView mCLogo;
+    private int mCustomlogoColor;	
+    private int mCustomlogoStyle;
+
     // settings
     private QSPanel mQSPanel;
     private QSTileHost mQSTileHost;
@@ -604,6 +611,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_AOSIP_LOGO_STYLE),
                     false, this, UserHandle.USER_ALL);
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SHOW_CUSTOM_LOGO),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.CUSTOM_LOGO_COLOR),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.CUSTOM_LOGO_STYLE),
+                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -684,7 +700,21 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 updateSpeedbump();
                 updateClearAll();
                 updateEmptyShadeView();
-            }
+           } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.SHOW_CUSTOM_LOGO))) {
+                recreateStatusBar();
+                updateRowStates();
+                updateSpeedbump();
+                updateClearAll();
+                updateEmptyShadeView();
+	   } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.CUSTOM_LOGO_STYLE))) {
+                recreateStatusBar();
+                updateRowStates();
+                updateSpeedbump();
+                updateClearAll();
+                updateEmptyShadeView();
+	   }
         }
 
          public void update() {
@@ -715,6 +745,23 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 aosipLogo = (ImageView) mStatusBarView.findViewById(R.id.aosip_logo);
             }
             showAosipLogo(mAosipLogo, mAosipLogoColor, mAosipLogoStyle);
+
+            mCustomlogoStyle = Settings.System.getIntForUser(
+                    resolver, Settings.System.CUSTOM_LOGO_STYLE, 0,
+                    UserHandle.USER_CURRENT);
+            mCustomlogo = Settings.System.getIntForUser(resolver,
+                    Settings.System.SHOW_CUSTOM_LOGO, 0, mCurrentUserId) == 1;
+            mCustomlogoColor = Settings.System.getIntForUser(resolver,
+                    Settings.System.CUSTOM_LOGO_COLOR, 0xFFFFFFFF, mCurrentUserId);
+	       if ( mCustomlogoStyle == 0) {
+                mCLogo = (ImageView) mStatusBarView.findViewById(R.id.custom);
+            } else if ( mCustomlogoStyle == 1) {
+			  mCLogo = (ImageView) mStatusBarView.findViewById(R.id.custom_1);
+	    } else if ( mCustomlogoStyle == 2) {
+                 mCLogo = (ImageView) mStatusBarView.findViewById(R.id.custom_2);
+            }
+            showmCustomlogo(mCustomlogo, mCustomlogoColor,  mCustomlogoStyle);
+
         }
      }
 
@@ -1246,6 +1293,22 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mAosipLogoColor = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.STATUS_BAR_AOSIP_LOGO_COLOR, 0xFFFFFFFF, mCurrentUserId);
         showAosipLogo(mAosipLogo, mAosipLogoColor, mAosipLogoStyle);
+
+	mCustomlogoStyle = Settings.System.getIntForUser(mContext.getContentResolver(), 
+		    Settings.System.CUSTOM_LOGO_STYLE, 0,
+                    UserHandle.USER_CURRENT);
+            mCustomlogo = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.SHOW_CUSTOM_LOGO, 0, mCurrentUserId) == 1;
+            mCustomlogoColor = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.CUSTOM_LOGO_COLOR, 0xFFFFFFFF, mCurrentUserId);
+	     if ( mCustomlogoStyle == 0) {
+                 mCLogo = (ImageView) mStatusBarView.findViewById(R.id.custom);
+            } else if ( mCustomlogoStyle == 1) {
+		 mCLogo = (ImageView) mStatusBarView.findViewById(R.id.custom_1);
+	    } else if ( mCustomlogoStyle == 2) {
+                 mCLogo = (ImageView) mStatusBarView.findViewById(R.id.custom_2);
+            } 
+            showmCustomlogo(mCustomlogo, mCustomlogoColor,  mCustomlogoStyle);
 
         mKeyguardUserSwitcher = new KeyguardUserSwitcher(mContext,
                 (ViewStub) mStatusBarWindowContent.findViewById(R.id.keyguard_user_switcher),
@@ -3477,6 +3540,30 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
         aosipLogo.setVisibility(View.VISIBLE);
     }
+
+public void showmCustomlogo(boolean show , int color , int style) { 
+
+	if (mStatusBarView == null) return;
+
+  	 if (!show) {
+            mCLogo.setVisibility(View.GONE);
+            return;
+        }
+
+	mCLogo.setColorFilter(color, Mode.MULTIPLY);
+     	      if ( style == 0) {
+		 mCLogo.setVisibility(View.GONE);
+                mCLogo = (ImageView) mStatusBarView.findViewById(R.id.custom);
+            } else if ( style == 1) {
+		 mCLogo.setVisibility(View.GONE);
+		mCLogo = (ImageView) mStatusBarView.findViewById(R.id.custom_1);
+	    } else if ( style == 2) {
+		 mCLogo.setVisibility(View.GONE);
+                 mCLogo = (ImageView) mStatusBarView.findViewById(R.id.custom_2);
+            } 
+        mCLogo.setVisibility(View.VISIBLE);
+
+	}
 
     private void resetUserExpandedStates() {
         ArrayList<Entry> activeNotifications = mNotificationData.getActiveNotifications();

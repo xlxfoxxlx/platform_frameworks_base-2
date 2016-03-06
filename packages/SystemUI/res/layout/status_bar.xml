@@ -73,6 +73,8 @@
                     android:visibility="gone"
                     />
 
+            	<include layout="@layout/custom_icons" />
+
                 <com.android.systemui.statusbar.policy.ClockLeft
                     android:id="@+id/left_clock"
                     android:textAppearance="@style/TextAppearance.StatusBar.Clock"
