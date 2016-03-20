@@ -182,4 +182,15 @@
   <java-symbol type="drawable" name="ic_audio_notification_new" />
   <java-symbol type="drawable" name="ic_audio_notification_mute_new" />
   <java-symbol type="drawable" name="ic_audio_notification_mute_alpha" />
+
+  <!-- Alpha -->
+  <java-symbol type="drawable" name="logo_aosip" />
+
+  <!-- Boot dexopt layout -->
+  <java-symbol type="drawable" name="dexopt_brand_logo" />
+  <java-symbol type="layout" name="boot_dexopt_layout" />
+  <java-symbol type="id" name="dexopt_icon" />
+  <java-symbol type="id" name="dexopt_message" />
+  <java-symbol type="id" name="dexopt_message_detail" />
+  <java-symbol type="id" name="dexopt_progress" />
 </resources>
