@@ -11093,6 +11093,11 @@ public class WindowManagerService extends IWindowManager.Stub
     }
 
     @Override
+    public boolean navigationBarCanMove() {
+        return mPolicy.navigationBarCanMove();
+    }
+
+    @Override
     public void lockNow(Bundle options) {
         mPolicy.lockNow(options);
     }
