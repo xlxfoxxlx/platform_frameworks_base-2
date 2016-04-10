@@ -187,6 +187,17 @@ bool SoundPool::startThreads()
     return mDecodeThread != NULL;
 }
 
+sp<Sample> SoundPool::findSample(int sampleID)
+{
+    Mutex::Autolock lock(&mLock);
+    return findSample_l(sampleID);
+}
+
+sp<Sample> SoundPool::findSample_l(int sampleID)
+{
+    return mSamples.valueFor(sampleID);
+}
+
 SoundChannel* SoundPool::findChannel(int channelID)
 {
     for (int i = 0; i < mMaxChannels; ++i) {
@@ -211,25 +222,28 @@ int SoundPool::load(int fd, int64_t offset, int64_t length, int priority __unuse
 {
     ALOGV("load: fd=%d, offset=%" PRId64 ", length=%" PRId64 ", priority=%d",
             fd, offset, length, priority);
-    Mutex::Autolock lock(&mLock);
-    sp<Sample> sample = new Sample(++mNextSampleID, fd, offset, length);
-    mSamples.add(sample->sampleID(), sample);
-    doLoad(sample);
-    return sample->sampleID();
-}
-
-void SoundPool::doLoad(sp<Sample>& sample)
-{
-    ALOGV("doLoad: loading sample sampleID=%d", sample->sampleID());
-    sample->startLoad();
-    mDecodeThread->loadSample(sample->sampleID());
+    int sampleID;
+    {
+        Mutex::Autolock lock(&mLock);
+        sampleID = ++mNextSampleID;
+        sp<Sample> sample = new Sample(sampleID, fd, offset, length);
+        mSamples.add(sampleID, sample);
+        sample->startLoad();
+    }
+    // mDecodeThread->loadSample() must be called outside of mLock.
+    // mDecodeThread->loadSample() may block on mDecodeThread message queue space;
+    // the message queue emptying may block on SoundPool::findSample().
+    //
+    // It theoretically possible that sample loads might decode out-of-order.
+    mDecodeThread->loadSample(sampleID);
+    return sampleID;
 }
 
 bool SoundPool::unload(int sampleID)
 {
     ALOGV("unload: sampleID=%d", sampleID);
     Mutex::Autolock lock(&mLock);
-    return mSamples.removeItem(sampleID);
+    return mSamples.removeItem(sampleID) >= 0; // removeItem() returns index or BAD_VALUE
 }
 
 int SoundPool::play(int sampleID, float leftVolume, float rightVolume,
@@ -237,7 +251,6 @@ int SoundPool::play(int sampleID, float leftVolume, float rightVolume,
 {
     ALOGV("play sampleID=%d, leftVolume=%f, rightVolume=%f, priority=%d, loop=%d, rate=%f",
             sampleID, leftVolume, rightVolume, priority, loop, rate);
-    sp<Sample> sample;
     SoundChannel* channel;
     int channelID;
 
@@ -247,7 +260,7 @@ int SoundPool::play(int sampleID, float leftVolume, float rightVolume,
         return 0;
     }
     // is sample ready?
-    sample = findSample(sampleID);
+    sp<Sample> sample(findSample_l(sampleID));
     if ((sample == 0) || (sample->state() != Sample::READY)) {
         ALOGW("  sample %d not READY", sampleID);
         return 0;
@@ -514,10 +527,11 @@ static status_t decode(int fd, int64_t offset, int64_t length,
         if (strncmp(mime, "audio/", 6) == 0) {
 
             AMediaCodec *codec = AMediaCodec_createDecoderByType(mime);
-            if (AMediaCodec_configure(codec, format,
-                    NULL /* window */, NULL /* drm */, 0 /* flags */) != AMEDIA_OK
-                || AMediaCodec_start(codec) != AMEDIA_OK
-                || AMediaExtractor_selectTrack(ex, i) != AMEDIA_OK) {
+            if (codec == NULL
+                    || AMediaCodec_configure(codec, format,
+                            NULL /* window */, NULL /* drm */, 0 /* flags */) != AMEDIA_OK
+                    || AMediaCodec_start(codec) != AMEDIA_OK
+                    || AMediaExtractor_selectTrack(ex, i) != AMEDIA_OK) {
                 AMediaExtractor_delete(ex);
                 AMediaCodec_delete(codec);
                 AMediaFormat_delete(format);
@@ -737,17 +751,22 @@ void SoundChannel::play(const sp<Sample>& sample, int nextChannelID, float leftV
             // do not create a new audio track if current track is compatible with sample parameters
     #ifdef USE_SHARED_MEM_BUFFER
             newTrack = new AudioTrack(streamType, sampleRate, sample->format(),
-                    channelMask, sample->getIMemory(), AUDIO_OUTPUT_FLAG_FAST, callback, userData);
+                    channelMask, sample->getIMemory(), AUDIO_OUTPUT_FLAG_FAST, callback, userData,
+                    0 /*default notification frames*/, AUDIO_SESSION_ALLOCATE,
+                    AudioTrack::TRANSFER_DEFAULT,
+                    NULL /*offloadInfo*/, -1 /*uid*/, -1 /*pid*/, mSoundPool->attributes());
     #else
             uint32_t bufferFrames = (totalFrames + (kDefaultBufferCount - 1)) / kDefaultBufferCount;
             newTrack = new AudioTrack(streamType, sampleRate, sample->format(),
                     channelMask, frameCount, AUDIO_OUTPUT_FLAG_FAST, callback, userData,
-                    bufferFrames);
+                    bufferFrames, AUDIO_SESSION_ALLOCATE, AudioTrack::TRANSFER_DEFAULT,
+                    NULL /*offloadInfo*/, -1 /*uid*/, -1 /*pid*/, mSoundPool->attributes());
     #endif
             oldTrack = mAudioTrack;
             status = newTrack->initCheck();
             if (status != NO_ERROR) {
                 ALOGE("Error creating AudioTrack");
+                // newTrack goes out of scope, so reference count drops to zero
                 goto exit;
             }
             // From now on, AudioTrack callbacks received with previous toggle value will be ignored.

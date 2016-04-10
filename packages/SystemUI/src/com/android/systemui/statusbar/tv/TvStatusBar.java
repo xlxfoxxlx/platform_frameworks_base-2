@@ -59,7 +59,7 @@ public class TvStatusBar extends BaseStatusBar {
     }
 
     @Override
-    public void disable(int state, boolean animate) {
+    public void disable(int state1, int state2, boolean animate) {
     }
 
     @Override
@@ -121,7 +121,12 @@ public class TvStatusBar extends BaseStatusBar {
     }
 
     @Override
-    public void escalateHeadsUp() {
+    public void maybeEscalateHeadsUp() {
+    }
+
+    @Override
+    protected boolean isPanelFullyCollapsed() {
+        return false;
     }
 
     @Override
@@ -163,6 +168,10 @@ public class TvStatusBar extends BaseStatusBar {
 
     @Override
     public void appTransitionStarting(long startTime, long duration) {
+    }
+
+    @Override
+    public void onCameraLaunchGestureDetected(int source) {
     }
 
     @Override
