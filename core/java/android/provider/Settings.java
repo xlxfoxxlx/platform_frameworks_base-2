@@ -4571,6 +4571,12 @@ public final class Settings {
         @ChaosLab(name="GestureAnywhere", classification=Classification.NEW_FIELD)
         public static final String GESTURE_ANYWHERE_SHOW_TRIGGER = "gesture_anywhere_show_trigger";
 
+        /**
+         * whether to enable /disable showing charging current on lockscreen
+         * @hide
+         */
+        public static final String LOCK_SCREEN_SHOW_CURRENT = "lock_screen_show_current";
+
          /**
          * Change the color of the lockscreen bottom camera shortcut
          *
