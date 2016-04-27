@@ -636,7 +636,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_WEATHER_ICON_PACK),
                     false, this, UserHandle.USER_ALL);
-            update();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.PULSE_CUSTOM_DIMEN),
+                    false, this, UserHandle.USER_ALL);
+		    update();
         }
 
         @Override
@@ -730,8 +733,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 updateSpeedbump();
                 updateClearAll();
                 updateEmptyShadeView();
-	   }
-            update(); 
+           } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.PULSE_CUSTOM_DIMEN))) {
+		    mNavigationController.updateNavbarOverlay(getNavbarThemedResources());
+	   } 
+            update();
         }
 
          public void update() {
