@@ -3881,7 +3881,17 @@ public void showmCustomlogo(boolean show , int color , int style) {
         }
 
         // AdapterView does not support removeAllViews so check before calling
-        if (!(parent instanceof AdapterView)) parent.removeAllViews();
+        if (parent instanceof AdapterView) {
+            //We know that when it's AdapterView it's from CM's QS detail items list
+            try {
+            QSDetailItemsList.QSDetailListAdapter adapter =
+                    (QSDetailItemsList.QSDetailListAdapter) ((AdapterView) parent).getAdapter();	    
+            adapter.clear();
+            adapter.notifyDataSetInvalidated();
+            } catch (ClassCastException e) { /*Catch it*/}
+        } else {
+            parent.removeAllViews();
+        }
     }
 
     /**
