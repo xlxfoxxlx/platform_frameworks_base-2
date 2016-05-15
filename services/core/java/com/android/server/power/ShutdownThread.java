@@ -51,7 +51,6 @@ import com.android.internal.telephony.ITelephony;
 import com.android.server.pm.PackageManagerService;
 
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.WindowManager;
 
 import java.io.BufferedReader;
@@ -87,12 +86,9 @@ public final class ShutdownThread extends Thread {
     private static final String UNCRYPT_PACKAGE_FILE = "/cache/recovery/uncrypt_file";
 
     private static boolean mReboot;
-    private static boolean mRebootSoft;
     private static boolean mRebootSafeMode;
     private static boolean mRebootUpdate;
     private static String mRebootReason;
-
-    public static final String SOFT_REBOOT = "soft_reboot";
 
     // Provides shutdown assurance in case the system_server is killed
     public static final String SHUTDOWN_ACTION_PROPERTY = "sys.shutdown.requested";
@@ -233,18 +229,6 @@ public final class ShutdownThread extends Thread {
         }
     }
 
-    private static void doSoftReboot() {
-        try {
-            final IActivityManager am =
-                  ActivityManagerNative.asInterface(ServiceManager.checkService("activity"));
-            if (am != null) {
-                am.restart();
-            }
-        } catch (RemoteException e) {
-            Log.e(TAG, "failure trying to perform soft reboot", e);
-        }
-    }
-
     private static class CloseDialogReceiver extends BroadcastReceiver
             implements DialogInterface.OnDismissListener {
         private Context mContext;
@@ -340,15 +324,11 @@ public final class ShutdownThread extends Thread {
                 pd.setIndeterminate(false);
             } else {
                 // Factory reset path. Set the dialog message accordingly.
-                pd.setTitle(context.getText(com.android.internal.R.string.reboot_to_recovery_title));
+                pd.setTitle(context.getText(com.android.internal.R.string.reboot_to_reset_title));
                 pd.setMessage(context.getText(
-                        com.android.internal.R.string.reboot_recovery_progress));
+                        com.android.internal.R.string.reboot_to_reset_message));
                 pd.setIndeterminate(true);
             }
-        } else if (mReboot) {
-            pd.setTitle(context.getText(com.android.internal.R.string.reboot_system));
-            pd.setMessage(context.getText(com.android.internal.R.string.reboot_progress));
-            pd.setIndeterminate(true);
         } else {
             pd.setTitle(context.getText(com.android.internal.R.string.power_off));
             pd.setMessage(context.getText(com.android.internal.R.string.shutdown_progress));
