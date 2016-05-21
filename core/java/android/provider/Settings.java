@@ -4221,6 +4221,13 @@ public final class Settings {
         public static final String ALLOW_LIGHTS = "allow_lights";
 
         /**
+         * Whether to attach a queue to media notifications.
+         * Boolean setting.
+         * @hide
+         */
+        public static final String NOTIFICATION_PLAY_QUEUE = "notification_play_queue";
+
+        /**
          * Amount of apps to show in recents
          * @hide
          */
@@ -4831,7 +4838,8 @@ public final class Settings {
             PHONE_BLACKLIST_NOTIFY_ENABLED,
             PHONE_BLACKLIST_PRIVATE_NUMBER_MODE,
             PHONE_BLACKLIST_UNKNOWN_NUMBER_MODE,
-            PHONE_BLACKLIST_REGEX_ENABLED
+            PHONE_BLACKLIST_REGEX_ENABLED,
+            NOTIFICATION_PLAY_QUEUE
         };
 
         /**
