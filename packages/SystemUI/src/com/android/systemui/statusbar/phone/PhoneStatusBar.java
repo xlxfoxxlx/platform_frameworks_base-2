@@ -1998,9 +1998,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         updateCarrierLabelVisibility();
         updateLockScreenCarrierLabelVisibility();
         updateCarrierLabelColor(false);
-        updateClockStyle();
-        updateClockSettings();
-        updateClockColor(false);
         updateBatteryVisibility();
         updateBatteryTextVisibility();
         updateShowChargeAnimation();

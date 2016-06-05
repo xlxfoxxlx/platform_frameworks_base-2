@@ -108,6 +108,8 @@ public class StatusBarIconController implements Tunable {
     private Clock mLeftClock;
     private boolean mShowClock;
     private int mClockLocation;
+
+    private int mIconTint = Color.WHITE;
     private NetworkTraffic mNetworkTraffic;
     private int mCarrierLabelColor;
     private int mCarrierLabelColorOld;
@@ -142,6 +144,9 @@ public class StatusBarIconController implements Tunable {
     private int mNotificationIconColor;
     private int mNotificationIconColorTint;
     private float mDarkIntensity;
+
+    private int mDarkModeIconColorSingleTone;
+    private int mLightModeIconColorSingleTone;
 
     private int mIconSize;
     private int mIconHPadding;
@@ -541,7 +546,8 @@ public class StatusBarIconController implements Tunable {
                 mStatusIconColor, StatusBarColorHelper.getStatusIconColorDark(mContext));
         mNotificationIconColorTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
                 mNotificationIconColor, StatusBarColorHelper.getNotificationIconColorDark(mContext));
-
+	mIconTint = (int) ArgbEvaluator.getInstance().evaluate(darkIntensity,
+              mLightModeIconColorSingleTone, mDarkModeIconColorSingleTone);
         applyIconTint();
     }
 
