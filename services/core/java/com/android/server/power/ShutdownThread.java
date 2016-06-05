@@ -54,6 +54,7 @@ import android.system.Os;
 import android.view.Gravity;
 import android.widget.ListView;
 
+import com.android.internal.util.aosip.ThemeUtils;
 import com.android.internal.telephony.ITelephony;
 import com.android.server.pm.PackageManagerService;
 
@@ -139,7 +140,7 @@ public final class ShutdownThread extends Thread {
     public static void shutdown(final Context context, boolean confirm) {
         mReboot = false;
         mRebootSafeMode = false;
-        shutdownInner(context, confirm);
+        shutdownInner(getUiContext(context), confirm);
     }
 
     private static boolean isAdvancedRebootPossible(final Context context) {
@@ -196,12 +197,12 @@ public final class ShutdownThread extends Thread {
         if (confirm) {
             final CloseDialogReceiver closer = new CloseDialogReceiver(context);
             final boolean advancedReboot = isAdvancedRebootPossible(context);
-
+            final Context mUiContext = getUiContext(context);
             if (sConfirmDialog != null) {
                 sConfirmDialog.dismiss();
                 sConfirmDialog = null;
             }
-            AlertDialog.Builder confirmDialogBuilder = new AlertDialog.Builder(context)
+            AlertDialog.Builder confirmDialogBuilder = new AlertDialog.Builder(mUiContext)
                     .setTitle(mRebootSafeMode
                             ? com.android.internal.R.string.reboot_safemode_title
                             : showRebootOption
@@ -315,7 +316,7 @@ public final class ShutdownThread extends Thread {
         mRebootSafeMode = false;
         mRebootUpdate = false;
         mRebootReason = reason;
-        shutdownInner(context, confirm);
+        shutdownInner(getUiContext(context), confirm);
     }
 
     /**
@@ -855,5 +856,12 @@ public final class ShutdownThread extends Thread {
         if (!done[0]) {
             Log.w(TAG, "Timed out waiting for uncrypt.");
         }
+    }
+
+    private static Context getUiContext(Context context) {
+        Context mUiContext = null;
+        mUiContext = ThemeUtils.createUiContext(context);
+        mUiContext.setTheme(android.R.style.Theme_DeviceDefault_Light_DarkActionBar);
+        return mUiContext != null ? mUiContext : context;
     }
 }
