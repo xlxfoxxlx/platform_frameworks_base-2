@@ -3853,13 +3853,6 @@ public final class Settings {
         public static final String QS_USE_FOUR_COLUMNS = "qs_use_four_columns";
 
         /**
-        /** Whether to allow one finger quick settings expansion on the right side of the statusbar.
-         *
-         * @hide
-         */
-        public static final String STATUS_BAR_QUICK_QS_PULLDOWN = "status_bar_quick_qs_pulldown";
-
-        /**
          * Whether to show or hide search bar in recents view
          * @hide
          */

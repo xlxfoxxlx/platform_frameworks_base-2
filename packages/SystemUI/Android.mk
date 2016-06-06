@@ -10,13 +10,11 @@ LOCAL_SRC_FILES += $(call all-java-files-under, ../../../../packages/apps/DUI/sr
 
 LOCAL_STATIC_JAVA_LIBRARIES := Keyguard \
     trail-drawing \
-    rebound
-
-LOCAL_JAVA_LIBRARIES := telephony-common org.dirtyunicorns.utils
-
-LOCAL_STATIC_JAVA_LIBRARIES := Keyguard \
+    rebound \
     android-support-v7-palette \
     android-support-v4
+
+LOCAL_JAVA_LIBRARIES := telephony-common org.dirtyunicorns.utils
 
 LOCAL_PACKAGE_NAME := SystemUI
 LOCAL_CERTIFICATE := platform
