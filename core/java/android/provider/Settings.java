@@ -3764,17 +3764,52 @@ public final class Settings {
          */
         public static final String STATUS_BAR_STATUS_ICONS_COLOR_DARK_MODE = "status_bar_status_icons_status_color_color_dark_mode";
 
-        /**
-         * Color of the network traffic text, (dark mode)
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_TRAFFIC_TEXT_COLOR_DARK_MODE = "status_bar_network_traffic_text_color_dark_mode";
 
         /**
-         * Color of the network traffic icons, (dark mode)
+         * Network traffic activity
+         * 0: download
+         * 1: upload
+         * 2: download and upload
+         * 3: hidden
+         * default: 2
          * @hide
          */
-        public static final String STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR_DARK_MODE = "status_bar_network_traffic_icon_color_dark_mode";
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_ACTIVITY = "status_bar_network_traffic_activity";
+
+        /**
+         * Network traffic type
+         * 0: text
+         * 1: icon
+         * 2: text and icon
+         * default: 2
+         * @hide
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_TYPE = "status_bar_network_traffic_type";
+
+        /**
+         * Display network traffic text value as bit/byte
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_BIT_BYTE = "status_bar_network_traffic_bit_byte";
+
+        /**
+         * Show/hide network traffic on no traffic
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_HIDE_TRAFFIC = "status_bar_network_traffic_hide_traffic";
+
+        /**
+         * Color of the network traffic text
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_TEXT_COLOR = "status_bar_network_traffic_text_color";
+
+        /**
+         * Color of the network traffic icons
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR = "status_bar_network_traffic_icon_color";
 
         /**
          * Color of the notification icons on the status bar
@@ -3835,6 +3870,18 @@ public final class Settings {
          */
         public static final String DASHBOARD_TILEVIEW_DOUBLE_LINES = "dashboard_tileview_double_lines";
 
+       /**
+         * Color of the network traffic text
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_TEXT_COLOR = "status_bar_network_traffic_text_color";
+
+        /**
+         * Color of the network traffic icons
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR = "status_bar_network_traffic_icon_color";
+ 
         /**
          * Whether to display dashboard dividers
          * @hide
