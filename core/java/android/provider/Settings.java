@@ -3812,6 +3812,19 @@ public final class Settings {
         public static final String STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR = "status_bar_network_traffic_icon_color";
 
         /**
+         * Color of the network traffic text, (dark mode)
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_TEXT_COLOR_DARK_MODE = "status_bar_network_traffic_text_color_dark_mode";
+
+        /**
+         * Color of the network traffic icons, (dark mode)
+         * @hide
+         */
+        public static final String STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR_DARK_MODE = "status_bar_network_traffic_icon_color_dark_mode";
+
+
+        /**
          * Color of the notification icons on the status bar
          * @hide
          */
@@ -3869,18 +3882,6 @@ public final class Settings {
          * @hide
          */
         public static final String DASHBOARD_TILEVIEW_DOUBLE_LINES = "dashboard_tileview_double_lines";
-
-       /**
-         * Color of the network traffic text
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_TRAFFIC_TEXT_COLOR = "status_bar_network_traffic_text_color";
-
-        /**
-         * Color of the network traffic icons
-         * @hide
-         */
-        public static final String STATUS_BAR_NETWORK_TRAFFIC_ICON_COLOR = "status_bar_network_traffic_icon_color";
  
         /**
          * Whether to display dashboard dividers
