@@ -134,6 +134,8 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     private int mMultiUserExpandedMargin;
     private int mMultiUserCollapsedMargin;
 
+    private SettingsObserver mSettingsObserver;
+
     private int mClockMarginBottomExpanded;
     private int mClockMarginBottomCollapsed;
     private int mMultiUserSwitchWidthCollapsed;
@@ -168,8 +170,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     private float mCurrentT;
     private boolean mShowingDetail;
     private boolean mDetailTransitioning;
-
-    private SettingsObserver mSettingsObserver;
 
     private ImageView mBackgroundImage;
     private Drawable mCurrentBackground;
@@ -905,14 +905,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         updateAmPmTranslation();
     }
 
-    public static void updatePreferences(Context mContext) {
-        mTranslucentHeader = (Settings.System.getInt(mContext.getContentResolver(), Settings.System.TRANSLUCENT_HEADER_PREFERENCE_KEY, 1) == 1);
-        mTranslucencyPercentage =  Settings.System.getInt(mContext.getContentResolver(), Settings.System.TRANSLUCENT_HEADER_PRECENTAGE_PREFERENCE_KEY, 70);
-        mTranslucencyPercentage = 255 - ((mTranslucencyPercentage * 255) / 100);
-
-        handleStatusBarHeaderViewBackround();
-    }
-
     /**
      * Captures all layout values (position, visibility) for a certain state. This is used for
      * animations.
@@ -1081,6 +1073,10 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.HALO_ACTIVE), false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.TRANSLUCENT_HEADER_PREFERENCE_KEY), false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.TRANSLUCENT_HEADER_PRECENTAGE_PREFERENCE_KEY), false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -1109,11 +1105,17 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             setQSHeaderAlpha();
             mShowhaloButton = Settings.Secure.getInt(resolver,
                     Settings.Secure.HALO_ENABLE, 0) == 1;
-
             mHaloActive = Settings.Secure.getInt(resolver,
                     Settings.Secure.HALO_ACTIVE, 0) == 1;
             mHaloButton.setActivated(mHaloActive);
+            mTranslucentHeader = Settings.System.getIntForUser(resolver,
+                Settings.System.TRANSLUCENT_HEADER_PREFERENCE_KEY, 0, currentUserId) == 1;
+            mTranslucencyPercentage = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.TRANSLUCENT_HEADER_PRECENTAGE_PREFERENCE_KEY, 70);
 
+            mTranslucencyPercentage = 255 - ((mTranslucencyPercentage * 255) / 100);
+            handleStatusBarHeaderViewBackround();
+            updateEverything();
             updateVisibilities();
         }
     }
