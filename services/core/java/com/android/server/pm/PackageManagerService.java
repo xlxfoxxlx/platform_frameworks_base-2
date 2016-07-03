@@ -2812,11 +2812,6 @@ public class PackageManagerService extends IPackageManager.Stub {
     }
 
     @Override
-    public int[] getPackageGids(String packageName, int userId) {
-        return getPackageGidsEtc(packageName, 0, userId);
-    }
-
-    @Override
     public int[] getPackageGidsEtc(String packageName, int flags, int userId) {
         if (!sUserManager.exists(userId)) {
             return null;
