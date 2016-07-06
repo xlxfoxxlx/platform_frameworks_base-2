@@ -37,6 +37,7 @@ import com.android.keyguard.CarrierText;
 
 import com.android.systemui.BatteryMeterView;
 import com.android.systemui.R;
+import com.android.systemui.statusbar.SignalClusterView;
 import com.android.systemui.statusbar.policy.BatteryController;
 import com.android.systemui.statusbar.policy.KeyguardUserSwitcher;
 import com.android.systemui.statusbar.policy.UserInfoController;
@@ -55,6 +56,7 @@ public class KeyguardStatusBarView extends RelativeLayout
     private boolean mBatteryListening;
 
     private View mSystemIconsSuperContainer;
+    private SignalClusterView mSignalCluster;
     private MultiUserSwitch mMultiUserSwitch;
     private ImageView mMultiUserAvatar;
     private TextView mBatteryLevel;

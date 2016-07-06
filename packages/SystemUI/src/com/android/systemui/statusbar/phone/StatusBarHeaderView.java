@@ -642,6 +642,10 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                 }
             }*/
             startSettingsActivity();
+        } else if (v == mClock) {
+            startClockActivity();
+        } else if (v == mDateGroup) {
+            startDateActivity();
         } else if (v == mSystemIconsSuperContainer) {
             startBatteryActivity();
         } else if (v == mAlarmStatus && mNextAlarm != null) {
@@ -649,22 +653,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             if (showIntent != null) {
                 mActivityStarter.startPendingIntentDismissingKeyguard(showIntent);
             }
-        } else if (v == mClock) {
-            startClockActivity();
-        } else if (v == mDateGroup) {
-            startDateActivity();
-        }
-        mQSPanel.vibrateTile(20);
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        if (v == mSystemIconsSuperContainer) {
-            startBatteryLongClickActivity();
-        } else if (v == mClock) {
-            startClockLongClickActivity();
-        } else if (v == mDateGroup) {
-            startDateLongClickActivity();
         } else if (v == mWeatherImage) {
             try {
                 if (!mWeatherDataInvalid && mWeatherData != null) {
@@ -711,9 +699,10 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                 }
             });
             anim.start();
-        }
-        return false;
-    }
+       }
+        mQSPanel.vibrateTile(20);
+     }
+
 
     @Override
     public boolean onLongClick(View v) {
@@ -724,6 +713,12 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             mWeatherImage.showRefresh();
             forceRefreshWeatherSettings();
             return true;
+        } else if (v == mSystemIconsSuperContainer) {
+            startBatteryLongClickActivity();
+        } else if (v == mClock) {
+            startClockLongClickActivity();
+        } else if (v == mDateGroup) {
+            startDateLongClickActivity();
         }
         return false;
     }
