@@ -797,8 +797,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
             mBlurRadius = Settings.System.getInt(resolver,
                     Settings.System.LOCKSCREEN_BLUR_RADIUS, 14);
-            boolean mShow4G = Settings.System.getIntForUser(resolver,
-                    Settings.System.SHOW_FOURG, 0, UserHandle.USER_CURRENT) == 1;
             mAosipLogoStyle = Settings.System.getIntForUser(
                     resolver, Settings.System.STATUS_BAR_AOSIP_LOGO_STYLE, 0,
                     UserHandle.USER_CURRENT);
