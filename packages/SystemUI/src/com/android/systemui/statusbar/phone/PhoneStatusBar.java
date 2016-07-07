@@ -141,6 +141,7 @@ import com.android.systemui.keyguard.KeyguardViewMediator;
 import com.android.systemui.navigation.NavigationController;
 import com.android.systemui.navigation.Navigator;
 import com.android.systemui.omni.StatusBarHeaderMachine;
+import com.android.systemui.qs.QSDetailItemsList;
 import com.android.systemui.qs.QSPanel;
 import com.android.systemui.recents.ScreenPinningRequest;
 import com.android.systemui.statusbar.ActivatableNotificationView;
@@ -646,9 +647,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.STATUS_BAR_WEATHER_ICON_PACK),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.PULSE_CUSTOM_DIMEN),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.NAVBAR_TINT_SWITCH),
                     false, this, UserHandle.USER_ALL);
 	    resolver.registerContentObserver(Settings.System.getUriFor(
@@ -754,9 +752,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 updateSpeedbump();
                 updateClearAll();
                 updateEmptyShadeView();
-           } else if (uri.equals(Settings.System.getUriFor(
-                Settings.System.PULSE_CUSTOM_DIMEN))) {
-                mNavigationController.updateNavbarOverlay(getNavbarThemedResources());
   	   } else if (uri.equals(Settings.System.getUriFor(
                 Settings.System.NAVBAR_TINT_SWITCH))) {
    	        mNavigationController.updateNavbarOverlay(getNavbarThemedResources());
