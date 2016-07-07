@@ -47,6 +47,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Process;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.util.Log;

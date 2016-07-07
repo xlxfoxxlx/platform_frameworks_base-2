@@ -18,10 +18,12 @@ package com.android.systemui.statusbar.phone;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.UserHandle;
+import android.os.Handler;
 import android.provider.Settings;
-import android.os.UserHandle;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -316,34 +318,6 @@ public class KeyguardStatusBarView extends RelativeLayout
         super.onAttachedToWindow();
         getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
                 "keyguard_show_clock"), false, mObserver);
-    }
-
-    public void setCarrierLabelVisibility(boolean show) {
-        mCarrierLabel.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    public void updateCarrierLabelColor() {
-        mCarrierLabel.updateColor(false);
-    }
-
-    public void updateNetworkIconColors() {
-	mColorSwitch =  Settings.System.getInt(mContext.getContentResolver(),
-				 Settings.System.STATUSBAR_COLOR_SWITCH, 0) == 1;
-	if(mColorSwitch) {
-        mSignalCluster.setIconTint(
-                StatusBarColorHelper.getNetworkSignalColor(mContext),
-                StatusBarColorHelper.getNoSimColor(mContext),
-                StatusBarColorHelper.getAirplaneModeColor(mContext), 0f);
-	 }
-    }
-
-    public void updateNetworkSignalColor() {
-	mColorSwitch =  Settings.System.getInt(mContext.getContentResolver(),
-				 Settings.System.STATUSBAR_COLOR_SWITCH, 0) == 1;
-	if(mColorSwitch) {
-        mSignalCluster.applyNetworkSignalTint(StatusBarColorHelper.getNetworkSignalColor(getContext()));
-	}
->>>>>>> 948f9f5... Keyguard statusbar clock [1/2]
     }
 
     private boolean showBattery() {

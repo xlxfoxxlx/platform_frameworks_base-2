@@ -3672,6 +3672,12 @@ public final class Settings {
         public static final String RECENTS_USE_OMNISWITCH = "recents_use_omniswitch";
 
         /**
+         *  Enable flashlight notification
+         * @hide
+         */
+        public static final String FLASHLIGHT_NOTIFICATION = "flashlight_notification";
+
+        /**
          *  Color of the (custom) carrier label on the status bar
          * @hide
          */
