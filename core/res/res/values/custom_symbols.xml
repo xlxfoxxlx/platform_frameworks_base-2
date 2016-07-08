@@ -28,26 +28,20 @@
   <java-symbol type="dimen" name="edge_gesture_trigger_distance" />
   <java-symbol type="dimen" name="edge_gesture_perpendicular_distance" />
   <java-symbol type="dimen" name="edge_gesture_trigger_thickness" />
-
   <!-- Last app switch animations -->
   <java-symbol type="anim" name="last_app_in" />
   <java-symbol type="anim" name="last_app_out" />
-
   <!-- Screen Recording -->
   <java-symbol type="bool" name="config_enableScreenrecordChord" />
-
   <!-- Config IME switcher -->
   <java-symbol type="bool" name="config_show_IMESwitcher" />
-
   <!-- Power menu Animations  -->
   <java-symbol type="style" name="PowerMenuBottomAnimation" />
   <java-symbol type="style" name="PowerMenuTopAnimation" />
-
   <!-- Package Manager -->
   <java-symbol type="array" name="config_disabledComponents" />
   <java-symbol type="array" name="config_forceEnabledComponents" />
   <java-symbol type="color" name="darkkat_blue_grey" />
-
   <!-- Reboot - Advanced Reboot -->
   <java-symbol type="string" name="reboot_confirm" />
   <java-symbol type="string" name="reboot_title" />
@@ -60,11 +54,9 @@
   <java-symbol type="style" name="GlobalActionsAnimation" />
   <java-symbol type="dimen" name="global_actions_avatar_size" />
   <java-symbol type="string" name="global_action_current_user" />
-
   <!-- Package Manager -->
   <java-symbol type="array" name="config_disabledComponents" />
   <java-symbol type="array" name="config_forceEnabledComponents" />
-
   <!-- Notification and battery light -->
   <java-symbol type="bool" name="config_intrusiveNotificationLed" />
   <java-symbol type="bool" name="config_multiColorNotificationLed" />
@@ -72,12 +64,10 @@
   <java-symbol type="bool" name="config_multiColorBatteryLed" />
   <java-symbol type="array" name="notification_light_package_mapping" />
   <java-symbol type="array" name="config_notificationNoAlertsVibePattern" />
-
   <!-- Unlink notification images -->
   <java-symbol type="drawable" name="ic_audio_notification_new" />
   <java-symbol type="drawable" name="ic_audio_notification_mute_new" />
   <java-symbol type="drawable" name="ic_audio_notification_mute_alpha" />
-
   <!-- Power menu -->
   <java-symbol type="drawable" name="ic_lock_screenshot" />
   <java-symbol type="string" name="global_action_screenshot" />
@@ -87,7 +77,6 @@
   <java-symbol type="drawable" name="ic_lock_user" />
   <java-symbol type="drawable" name="ic_lock_assist" />
   <java-symbol type="drawable" name="ic_lock_voice" />
-
   <!-- Shortcut actions -->
   <java-symbol type="drawable" name="ic_shortcut_action_silent" />
   <java-symbol type="drawable" name="ic_shortcut_action_theme_switch" />
@@ -113,11 +102,9 @@
   <java-symbol type="drawable" name="ic_shortcut_action_ring_vib_silent" />
   <java-symbol type="drawable" name="ic_shortcut_action_screenshot" />
   <java-symbol type="drawable" name="ic_shortcut_action_search" />
-
   <!-- AOSiP is starting -->
   <java-symbol type="string" name="android_start_title_pn" />
   <java-symbol type="string" name="android_upgrading_title_pn" />
-
   <!-- Slim recent app screen-->
   <java-symbol type="integer" name="config_recentDefaultDur" />
   <java-symbol type="integer" name="config_recentExitDur" />
@@ -126,7 +113,6 @@
   <java-symbol type="anim" name="recent_screen_enter" />
   <java-symbol type="anim" name="recent_screen_enter_left" />
   <java-symbol type="anim" name="recent_screen_fade_out" />
-
   <!-- AOKP custom system animations -->
   <java-symbol type="string" name="action_null"/>
   <java-symbol type="string" name="animation_fade"/>
@@ -169,7 +155,6 @@
   <java-symbol type="anim" name="slide_out_left_no_fade" />
   <java-symbol type="anim" name="slide_in_left_no_fade" />
   <java-symbol type="anim" name="slide_out_right_no_fade" />
-
   <!-- Toast Animation -->
   <java-symbol type="style" name="Animation.Toast.Fade" />
   <java-symbol type="style" name="Animation.Toast.SlideRight" />
@@ -185,17 +170,13 @@
   <java-symbol type="style" name="Animation.Toast.Translucent" />
   <java-symbol type="style" name="Animation.Toast.SlideRightLeft" />
   <java-symbol type="style" name="Animation.Toast.SlideLeftRight" />
-
   <!-- Kill app back press -->
   <java-symbol type="string" name="app_killed_message" />
   <java-symbol type="integer" name="config_backKillTimeout" />
-
   <!-- google webview -->
   <java-symbol type="string" name="config_alternateWebViewPackageName" />
-
   <!-- Alpha -->
   <java-symbol type="drawable" name="logo_aosip" />
-
   <!-- Boot dexopt layout -->
   <java-symbol type="drawable" name="dexopt_brand_logo" />
   <java-symbol type="layout" name="boot_dexopt_layout" />
@@ -203,17 +184,25 @@
   <java-symbol type="id" name="dexopt_message" />
   <java-symbol type="id" name="dexopt_message_detail" />
   <java-symbol type="id" name="dexopt_progress" />
-
   <!-- Show battery fully charged notification -->
   <java-symbol type="bool" name="config_showBatteryFullyChargedNotification" />
   <java-symbol type="string" name="notify_battery_fully_charged_title" />
   <java-symbol type="string" name="notify_battery_fully_charged_text" />
-
   <!-- Proximity check on screen on -->
   <java-symbol type="bool" name="config_proximityCheckOnWake" />
   <!-- Proximity check timeout -->
   <java-symbol type="integer" name="config_proximityCheckTimeout" />
   <!-- Proximity check on screen on default -->
   <java-symbol type="bool" name="config_proximityCheckOnWakeEnabledByDefault" />
+  <!-- Default name of the custom carrier label -->
+  <java-symbol type="string" name="default_custom_label" />
+  <!-- Theme install failure notification -->
+  <java-symbol type="string" name="theme_install_error_title" />
+  <java-symbol type="string" name="theme_install_error_message" />
+  <!-- Theme reset notification -->
+  <java-symbol type="string" name="theme_reset_notification_title" />
+  <java-symbol type="string" name="theme_reset_notification_body" />
+  <!-- Non-themeable packages -->
+  <java-symbol type="array" name="non_themeable_packages" />
 
 </resources>
