@@ -7486,6 +7486,18 @@ public final class Settings {
                 "camera_double_tap_power_gesture_disabled";
 
         /**
+         * Pulse Fudge Factor
+         * @hide
+         */
+        public static final String PULSE_SOLID_FUDGE_FACTOR = "pulse_solid_fudge_factor";
+
+        /**
+         * Pulse Lavamp Animation Speed
+         * @hide
+         */
+        public static final String PULSE_LAVALAMP_SOLID_SPEED = "lava_lamp_solid_speed";
+
+        /**
          * The TCP/IP port to run ADB on, or -1 for USB
          * @hide
          */
@@ -7688,13 +7700,13 @@ public final class Settings {
          * @hide
          */
         public static final String PULSE_EMPTY_BLOCK_SIZE = "pulse_empty_block_size";
-        
-         /**
-         * Pulse Fudge Factor
-         * @hide
-         */
-        public static final String PULSE_SOLID_FUDGE_FACTOR = "pulse_solid_fudge_factor";
-        
+
+          /**
+          * Pulse Fudge Factor
+          * @hide
+          */
+         public static final String PULSE_CUSTOM_FUDGE_FACTOR = "pulse_custom_fudge_factor";
+
          /**
          * Pulse Lavamp Animation Speed
          * @hide
