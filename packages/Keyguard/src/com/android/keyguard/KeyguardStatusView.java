@@ -290,8 +290,6 @@ public class KeyguardStatusView extends GridLayout implements
     private void updateSettings(boolean forceHide) {
         final ContentResolver resolver = getContext().getContentResolver();
         final Resources res = getContext().getResources();
-        View weatherPanel = findViewById(R.id.weather_panel);
-        TextView noWeatherInfo = (TextView) findViewById(R.id.no_weather_info_text);
         AlarmManager.AlarmClockInfo nextAlarm =
                 mAlarmManager.getNextAlarmClock(UserHandle.USER_CURRENT); 
         mShowWeather = Settings.System.getInt(resolver,
@@ -355,12 +353,8 @@ public class KeyguardStatusView extends GridLayout implements
                 (mShowWeather && !forceHideByNumberOfNotifications) ? View.VISIBLE : View.GONE);
         }
         if (forceHide) {
-            noWeatherInfo.setVisibility(View.VISIBLE);
-            weatherPanel.setVisibility(View.GONE);
             mWeatherConditionText.setVisibility(View.GONE);
         } else {
-            noWeatherInfo.setVisibility(View.GONE);
-            weatherPanel.setVisibility(View.VISIBLE);
             mWeatherConditionText.setVisibility(View.VISIBLE);
             mWeatherCity.setVisibility(showLocation ? View.VISIBLE : View.INVISIBLE);
         }
@@ -368,7 +362,6 @@ public class KeyguardStatusView extends GridLayout implements
         mAlarmStatusView.setTextColor(alarmTextAndIconColor);
         mDateView.setTextColor(primaryTextColor);
         mClockView.setTextColor(primaryTextColor);
-        noWeatherInfo.setTextColor(primaryTextColor);
        	mWeatherCity.setTextColor(mPrimaryTextColor);
         mWeatherConditionText.setTextColor(mPrimaryTextColor);
         mWeatherCurrentTemp.setTextColor(secondaryTextColor);
