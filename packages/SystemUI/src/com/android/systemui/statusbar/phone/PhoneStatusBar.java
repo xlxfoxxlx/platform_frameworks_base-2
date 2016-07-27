@@ -698,7 +698,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.LOCKSCREEN_SECURITY_ALPHA),
                     false, this, UserHandle.USER_ALL);
-		    update();
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.NAVBAR_BUTTONS_ALPHA),
+                    false, this, UserHandle.USER_ALL);
+            update();
         }
 
         @Override
@@ -798,6 +801,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 	   } else if (uri.equals(Settings.System.getUriFor(
                 Settings.System.NAVBAR_BUTTON_COLOR))) {
    	        mNavigationController.updateNavbarOverlay(getNavbarThemedResources());
+       } else if (uri.equals(Settings.Secure.getUriFor(
+                Settings.Secure.NAVBAR_BUTTONS_ALPHA))) {
+		        mNavigationController.updateNavbarOverlay(getNavbarThemedResources());
 	   } else if (uri.equals(Settings.System.getUriFor(
                 Settings.System.BATTERY_SAVER_MODE_COLOR))) {
                 mBatterySaverWarningColor = Settings.System.getIntForUser(

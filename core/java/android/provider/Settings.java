@@ -4811,7 +4811,7 @@ public final class Settings {
          */
         public static final String LOCK_SCREEN_WEATHER_ICON_COLOR = "lock_screen_weather_icon_color";
 
-	/**
+	    /**
          * Statusbar AOSIP logo
          * @hide
          */
@@ -4829,14 +4829,14 @@ public final class Settings {
          */
         public static final String SHOW_CUSTOM_LOGO = "show_custom_logo";
 
-	/**
+	    /**
          * Statusbar Custom logos Color
          * @hide
          */
 
 	public static final String CUSTOM_LOGO_COLOR = "custom_logo_color";
 
- 	 /**
+ 	    /**
          * Take your Pick 
          * @hide
          */
@@ -4900,7 +4900,7 @@ public final class Settings {
          */
         public static final String BATTERY_SAVER_MODE_COLOR = "battery_save_mode_color";
 
-	/**
+	    /**
          * @hide
          */
         public static final String LOCK_SCREEN_VISUALIZER_SHOW = "lock_screen_visualizer_show";
@@ -4917,7 +4917,7 @@ public final class Settings {
          */
         public static final String LOCK_SCREEN_VISUALIZER_CUSTOM_COLOR = "lock_screen_visualizer_custom_color";
 
-	/**
+        /**
          * Whether the phone volume up / down effect should be played
          * @hide
          */
@@ -4925,7 +4925,7 @@ public final class Settings {
 
 		
         /**
-	 * whether to enable torch on lockscreen
+	     * whether to enable torch on lockscreen
          * @hide
          */
         public static final String KEYGUARD_TOGGLE_TORCH = "keyguard_toggle_torch";
@@ -7735,6 +7735,12 @@ public final class Settings {
          * @hide
          */
         public static final String LAVAMP_SOLID_SPEED = "lavamp_solid_speed";
+
+         /**
+         * Navbar buttons transparency
+         * @hide
+         */
+        public static final String NAVBAR_BUTTONS_ALPHA = "navbar_buttons_alpha";
 
         /**
          * This are the settings to be backed up.
