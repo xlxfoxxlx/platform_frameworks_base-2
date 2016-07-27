@@ -24,6 +24,6 @@
     <drawable name="darkkat_bg_blue_grey">@color/darkkat_blue_grey</drawable>
 
     <!-- Boot dexopt layout -->
-    <color name="dexopt_background">#191919</color>
-    <color name="dexopt_text">#2dbef1</color>
+    <color name="dexopt_background">#000000</color>
+    <color name="dexopt_text">#04D123</color>
 </resources>
