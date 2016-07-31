@@ -608,6 +608,28 @@ final class DefaultPermissionGrantPolicy {
                 grantRuntimePermissionsLPw(gmscorePackage, PHONE_PERMISSIONS, userId);
                 grantRuntimePermissionsLPw(gmscorePackage, SMS_PERMISSIONS, userId);
                 grantRuntimePermissionsLPw(gmscorePackage, STORAGE_PERMISSIONS, userId);
+
+	    }
+
+            // Chromium Regular
+            PackageParser.Package chromiumRPackage = getDefaultProviderAuthorityPackageLPr(
+                      "org.chromium.chrome", userId);
+            if (chromiumRPackage != null) {
+                grantRuntimePermissionsLPw(chromiumRPackage, CONTACTS_PERMISSIONS, userId);
+            }
+
+            // Chromium Other
+            PackageParser.Package chromiumOPackage = getDefaultProviderAuthorityPackageLPr(
+                    "org.swe.atego.browser", userId);
+            if (chromiumOPackage != null) {
+                grantRuntimePermissionsLPw(chromiumOPackage, CONTACTS_PERMISSIONS, userId);
+            }
+
+            // SaberChrome
+            PackageParser.Package saberChrome = getDefaultProviderAuthorityPackageLPr(
+                    "org.frap129.saberchrome.browser", userId);
+            if (saberChrome != null) {
+                grantRuntimePermissionsLPw(saberChrome, CONTACTS_PERMISSIONS, userId);
             }
 
 			// Google Connectivity Services
@@ -695,13 +717,6 @@ final class DefaultPermissionGrantPolicy {
             if (conpro2Package != null) {
                 grantRuntimePermissionsLPw(conpro2Package, CONTACTS_PERMISSIONS, true, userId);
                 grantRuntimePermissionsLPw(conpro2Package, STORAGE_PERMISSIONS, true, userId);
-            }
-
-            // Chromium
-            PackageParser.Package chromiumPackage = getDefaultProviderAuthorityPackageLPr(
-                    "org.chromium.chrome", userId);
-            if (chromiumPackage != null) {
-                grantRuntimePermissionsLPw(chromiumPackage, CONTACTS_PERMISSIONS, userId);
             }
             mService.mSettings.onDefaultRuntimePermissionsGrantedLPr(userId);
         }
