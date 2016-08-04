@@ -2001,7 +2001,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         return entry.row.getParent() instanceof NotificationStackScrollLayout;
     }
 
-    private void handleUpdateNotifications() {
+    public void handleUpdateNotifications() {
         mNotificationData.filterAndSort();
 
         updateNotificationShade();
@@ -2010,7 +2010,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     }
 
     @Override
-    protected void updateNotifications() {
+    public void updateNotifications() {
         if (!mHandler.hasMessages(MSG_UPDATE_NOTIFICATIONS)) {
             mHandler.sendEmptyMessage(MSG_UPDATE_NOTIFICATIONS);
         }
@@ -3902,6 +3902,7 @@ public void showmCustomlogo(boolean show , int color , int style) {
         }
 
         loadDimens();
+        restartHalo();
 
         if (mNotificationPanel != null) {
             mNotificationPanel.updateResources();
