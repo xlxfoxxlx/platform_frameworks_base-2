@@ -30,4 +30,7 @@
     <!-- PA Pie -->
     <dimen name="pie_panel_padding">100dp</dimen>
 
+    <!-- Halo -->
+    <dimen name="halo_content_max_width">350dp</dimen>
+
 </resources>
