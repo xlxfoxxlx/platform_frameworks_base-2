@@ -800,7 +800,9 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                 ? 0
                 : mMultiUserSwitch.getLeft() - mSettingsContainer.getLeft();
         target.haloButtonAlpha = getAlphaForVisibility(mHaloButton);
-        target.haloButtonTranslation = mExpanded ? 0 : mSettingsContainer.getLeft() - mHaloButton.getLeft();
+        target.haloButtonTranslation = mExpanded
+                ? 0
+                : mSettingsContainer.getLeft() - mHaloButton.getLeft();
         target.signalClusterAlpha = mSignalClusterDetached ? 0f : 1f;
         target.settingsRotation = !mExpanded ? 90f : 0f;
         target.weatherImageAlpha =  getAlphaForVisibility(mWeatherImage);
@@ -858,7 +860,9 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             mSettingsContainer.setTranslationX(values.settingsTranslation);
             mSettingsButton.setRotation(values.settingsRotation);
         }
+        mHaloButton.setTranslationY(mSystemIconsSuperContainer.getTranslationY());
         mHaloButton.setTranslationX(values.haloButtonTranslation);
+        mHaloButton.setRotation(values.settingsRotation);
         applyAlpha(mEmergencyCallsOnly, values.emergencyCallsOnlyAlpha);
         if (!mShowingDetail && !mDetailTransitioning) {
             // Otherwise it needs to stay invisible
@@ -915,7 +919,7 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
             batteryX = v1.batteryX * (1 - t) + v2.batteryX * t;
             batteryY = v1.batteryY * (1 - t) + v2.batteryY * t;
             settingsTranslation = v1.settingsTranslation * (1 - t) + v2.settingsTranslation * t;
-            haloButtonTranslation = v1.haloButtonTranslation * (1 -t) + v2.haloButtonTranslation * t;
+            haloButtonTranslation = v1.haloButtonTranslation * (1 - t) + v2.haloButtonTranslation * t;
 
             float t1 = Math.max(0, t - 0.5f) * 2;
             settingsRotation = v1.settingsRotation * (1 - t1) + v2.settingsRotation * t1;
