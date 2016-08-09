@@ -232,6 +232,7 @@ public class QsTuner extends Fragment implements Callback {
         else if (spec.equals("compass")) return R.string.quick_settings_compass_label;
 	else if (spec.equals("pie")) return R.string.quick_settings_pie_label;
         else if (spec.equals("pulse")) return R.string.quick_settings_pulse_label;
+        else if (spec.equals("halo")) return R.string.quick_settings_halo_on;
         return 0;
     }
 
@@ -497,6 +498,7 @@ public class QsTuner extends Fragment implements Callback {
             else if (mSpec.equals("compass")) return R.drawable.ic_qs_compass_on;
 	    else if (mSpec.equals("pie")) return R.drawable.ic_qs_pie_on;
 	    else if (mSpec.equals("pulse")) return R.drawable.ic_qs_pulse;
+            else if (mSpec.equals("halo")) return R.drawable.ic_notify_halo_normal;
             return R.drawable.android;
         }
 
