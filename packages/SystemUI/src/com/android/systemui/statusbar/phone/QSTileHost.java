@@ -41,6 +41,7 @@ import com.android.systemui.qs.tiles.CompassTile;
 import com.android.systemui.qs.tiles.DndTile;
 import com.android.systemui.qs.tiles.ExpandedDesktopTile;
 import com.android.systemui.qs.tiles.FlashlightTile;
+import com.android.systemui.qs.tiles.HaloTile;
 import com.android.systemui.qs.tiles.HeadsUpTile;
 import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.ImeTile;
@@ -304,12 +305,13 @@ public class QSTileHost implements QSTile.Host, Tunable {
         else if (tileSpec.equals("adb_network")) return new AdbOverNetworkTile(this);
         else if (tileSpec.equals("caffeine")) return new CaffeineTile(this);
         else if (tileSpec.equals("ime")) return new ImeTile(this);
-	else if (tileSpec.equals("kill_app")) return new KillAppTile(this);
+	    else if (tileSpec.equals("kill_app")) return new KillAppTile(this);
         else if (tileSpec.equals("navigation_bar")) return new NavigationBarTile(this);
         else if (tileSpec.equals("volume")) return new VolumeTile(this);
         else if (tileSpec.equals("compass")) return new CompassTile(this);
-	else if (tileSpec.equals("pulse")) return new PulseTile(this);
+	    else if (tileSpec.equals("pulse")) return new PulseTile(this);
         else if (tileSpec.equals("substratum")) return new SubstratumTile(this);
+        else if (tileSpec.equals("halo")) return new HaloTile(this);
         else if (tileSpec.startsWith(IntentTile.PREFIX)) return IntentTile.create(this,tileSpec);
         else throw new IllegalArgumentException("Bad tile spec: " + tileSpec);
     }
