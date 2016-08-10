@@ -38,7 +38,7 @@ import com.android.systemui.qs.QSTileView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.cyanogenmod.internal.logging.CMMetricsLogger;
+import com.android.internal.logging.MetricsLogger;
 
 public class HaloTile extends QSTile<QSTile.BooleanState> {
     private boolean mListening;
@@ -57,7 +57,7 @@ public class HaloTile extends QSTile<QSTile.BooleanState> {
 
     @Override
     public int getMetricsCategory() {
-        return CMMetricsLogger.AICPEXTRAS;
+        return MetricsLogger.OWLSNEST;
     }
 
 
@@ -87,7 +87,7 @@ public class HaloTile extends QSTile<QSTile.BooleanState> {
             state.icon = ResourceIcon.get(R.drawable.ic_notify_halo_normal);
             state.label = mContext.getString(R.string.quick_settings_halo_on);
         } else {
-            state.icon = ResourceIcon.get(R.drawable.ic_notify_halo_pressed);
+            state.icon = ResourceIcon.get(R.drawable.ic_notify_halo_deactivated);
             state.label = mContext.getString(R.string.quick_settings_halo_off);
         }
     }
