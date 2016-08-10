@@ -7759,6 +7759,13 @@ public final class Settings {
         public static final String LAVAMP_SOLID_SPEED = "lavamp_solid_speed";
 
          /**
+         * width of Fling trails stroke, in density pixels
+         *
+         * @hide
+         */
+        public static final String FLING_TRAILS_WIDTH = "fling_trails_width";
+
+        /**
          * Navbar buttons transparency
          * @hide
          */
