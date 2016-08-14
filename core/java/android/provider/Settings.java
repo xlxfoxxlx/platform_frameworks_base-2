@@ -4940,6 +4940,12 @@ public final class Settings {
         public static final String LOCK_SCREEN_VISUALIZER_CUSTOM_COLOR = "lock_screen_visualizer_custom_color";
 
         /**
+         * Recents Blur 
+         * @hide
+         */
+        public static final String RECENT_APPS_ENABLED_PREFERENCE_KEY = "blurred_recent_app_enabled_pref";
+
+        /**
          * Whether the phone volume up / down effect should be played
          * @hide
          */
