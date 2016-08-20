@@ -387,6 +387,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     //Blur stuff
     private int mBlurScale;
+    private int mBlurLockRadius;
     private int mBlurRadius;
     private boolean mTranslucentQuickSettings;
     private boolean mBlurredStatusBarExpandedEnabled;
@@ -671,7 +672,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_AOSIP_LOGO_STYLE),
                     false, this, UserHandle.USER_ALL);
-	    resolver.registerContentObserver(Settings.System.getUriFor(
+	        resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SHOW_CUSTOM_LOGO),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
@@ -692,11 +693,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.NAVBAR_TINT_SWITCH),
                     false, this, UserHandle.USER_ALL);
-	    resolver.registerContentObserver(Settings.System.getUriFor(
+	        resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.NAVBAR_BUTTON_COLOR),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.LOCKSCREEN_BLUR_RADIUS),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CUSTOM_HEADER_SHADOW),
@@ -871,7 +869,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
          public void update() {
              ContentResolver resolver = mContext.getContentResolver();
 
-            mBlurRadius = Settings.System.getInt(resolver,
+            mBlurLockRadius = Settings.System.getInt(resolver,
                     Settings.System.LOCKSCREEN_BLUR_RADIUS, 14);
             boolean autoBrightness = Settings.System.getInt(
                     resolver, Settings.System.SCREEN_BRIGHTNESS_MODE, 0) ==
@@ -915,6 +913,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             showmCustomlogo(mCustomlogo, mCustomlogoColor,  mCustomlogoStyle);
             mHeader.settingsChanged();
 
+            mBlurLockRadius = Settings.System.getInt(resolver,
+                    Settings.System.LOCKSCREEN_BLUR_RADIUS, 14);
             mBlurScale = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.BLUR_SCALE_PREFERENCE_KEY, 10);
             mBlurRadius = Settings.System.getInt(mContext.getContentResolver(),
@@ -5118,8 +5118,8 @@ public void showmCustomlogo(boolean show , int color , int style) {
 
     public void setBackgroundBitmap(Bitmap bmp) {
         if (bmp != null) {
-            if (mBlurRadius != 0) {
-                mBlurredImage = blurBitmap(bmp, mBlurRadius);
+            if (mBlurLockRadius != 0) {
+                mBlurredImage = blurBitmap(bmp, mBlurLockRadius);
             } else {
                 mBlurredImage = bmp;
             }
