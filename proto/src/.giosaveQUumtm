@@ -1,0 +1,333 @@
+// Copyright (C) 2016 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto2";
+
+option java_package = "com.android.internal.logging";
+option java_outer_classname = "MetricsProto";
+
+package com_android_internal_logging;
+
+// Wrapper for System UI log events
+message MetricsEvent {
+
+  // Known visual elements: views or controls.
+  enum View {
+    // Unknown view
+    VIEW_UNKNOWN = 0;
+
+    // OBSOLETE
+    MAIN_SETTINGS = 1;
+
+    // OPEN: Settings > Accessibility
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ACCESSIBILITY = 2;
+
+    // OPEN: Settings > Accessibility > Captions
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ACCESSIBILITY_CAPTION_PROPERTIES = 3;
+
+    // OPEN: Settings > Accessibility > [Service]
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ACCESSIBILITY_SERVICE = 4;
+
+    // OPEN: Settings > Accessibility > Color correction
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ACCESSIBILITY_TOGGLE_DALTONIZER = 5;
+
+    // OPEN: Settings > Accessibility > Accessibility shortcut
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ACCESSIBILITY_TOGGLE_GLOBAL_GESTURE = 6;
+
+    // OPEN: Settings > Accessibility > Magnification gestures
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ACCESSIBILITY_TOGGLE_SCREEN_MAGNIFICATION = 7;
+
+    // OPEN: Settings > Accounts
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ACCOUNT = 8;
+
+    // OPEN: Settings > Accounts > [Single Account Sync Settings]
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ACCOUNTS_ACCOUNT_SYNC = 9;
+
+    // OPEN: Settings > Accounts > Add an account
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ACCOUNTS_CHOOSE_ACCOUNT_ACTIVITY = 10;
+
+    // OPEN: Settings > Accounts > [List of accounts when more than one]
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ACCOUNTS_MANAGE_ACCOUNTS = 11;
+
+    // OPEN: Settings > Cellular network settings > APNs
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    APN = 12;
+
+    // OPEN: Settings > More > Cellular network settings > APNs > [Edit APN]
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    APN_EDITOR = 13;
+
+    // OBSOLETE
+    APP_OPS_DETAILS = 14;
+
+    // OBSOLETE
+    APP_OPS_SUMMARY = 15;
+
+    // OBSOLETE
+    APPLICATION = 16;
+
+    // OPEN: Settings > Apps > Configure apps > App links > [App]
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    APPLICATIONS_APP_LAUNCH = 17;
+
+    // OBSOLETE
+    APPLICATIONS_APP_PERMISSION = 18;
+
+    // OPEN: Settings > Internal storage > Apps storage > [App]
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    APPLICATIONS_APP_STORAGE = 19;
+
+    // OPEN: Settings > Apps > [App info]
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    APPLICATIONS_INSTALLED_APP_DETAILS = 20;
+
+    // OPEN: Settings > Memory > App usage > [App Memory usage]
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    APPLICATIONS_PROCESS_STATS_DETAIL = 21;
+
+    // OBSOLETE
+    APPLICATIONS_PROCESS_STATS_MEM_DETAIL = 22;
+
+    // OPEN: Settings > Memory > App usage
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    APPLICATIONS_PROCESS_STATS_UI = 23;
+
+    // OPEN: Settings > Bluetooth
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    BLUETOOTH = 24;
+
+    // OPEN: Choose Bluetooth device (ex: when sharing)
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    BLUETOOTH_DEVICE_PICKER = 25;
+
+    // OBSOLETE
+    BLUETOOTH_DEVICE_PROFILES = 26;
+
+    // OPEN: Settings > Security > Choose screen lock
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    CHOOSE_LOCK_GENERIC = 27;
+
+    // OPEN: Settings > Security > Choose screen lock > Choose your password
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    CHOOSE_LOCK_PASSWORD = 28;
+
+    // OPEN: Settings > Security > Choose screen lock > Choose your pattern
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    CHOOSE_LOCK_PATTERN = 29;
+
+    // OPEN: Settings > Security > Choose screen lock > Confirm your password
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    CONFIRM_LOCK_PASSWORD = 30;
+
+    // OPEN: Settings > Security > Choose screen lock > Confirm your pattern
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    CONFIRM_LOCK_PATTERN = 31;
+
+    // OPEN: Settings > Security > Encrypt phone
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    CRYPT_KEEPER = 32;
+
+    // OPEN: Settings > Security > Encrypt phone > Confirm
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    CRYPT_KEEPER_CONFIRM = 33;
+
+    // OPEN: Settings > Search results
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DASHBOARD_SEARCH_RESULTS = 34;
+
+    // OPEN: Settings (Root page)
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DASHBOARD_SUMMARY = 35;
+
+    // OBSOLETE
+    DATA_USAGE = 36;
+
+    // OPEN: Settings > Data usage
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DATA_USAGE_SUMMARY = 37;
+
+    // OPEN: Settings > Date & time
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DATE_TIME = 38;
+
+    // OPEN: Settings > Developer options
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DEVELOPMENT = 39;
+
+    // OPEN: Settings > About phone
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DEVICEINFO = 40;
+
+    // OPEN: Settings > About phone > Status > IMEI information
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DEVICEINFO_IMEI_INFORMATION = 41;
+
+    // OPEN: Settings > Internal storage
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DEVICEINFO_STORAGE = 42;
+
+    // OPEN: Settings > About phone > Status > SIM status
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DEVICEINFO_SIM_STATUS = 43;
+
+    // OPEN: Settings > About phone > Status
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DEVICEINFO_STATUS = 44;
+
+    // OBSOLETE
+    DEVICEINFO_USB = 45;
+
+    // OPEN: Settings > Display
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DISPLAY = 46;
+
+    // OPEN: Settings > Display > Daydream
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    DREAM = 47;
+
+    // OPEN: Settings > Security > Screen lock > Secure start-up
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ENCRYPTION = 48;
+
+    // OPEN: Settings > Security > Nexus Imprint
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    FINGERPRINT = 49;
+
+    // OBSOLETE
+    FINGERPRINT_ENROLL = 50;
+
+    // OPEN: Settings > Battery > History details
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    FUELGAUGE_BATTERY_HISTORY_DETAIL = 51;
+
+    // OPEN: Settings > Battery > Battery saver
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    FUELGAUGE_BATTERY_SAVER = 52;
+
+    // OPEN: Settings > Battery > [App Use details]
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    FUELGAUGE_POWER_USAGE_DETAIL = 53;
+
+    // OPEN: Settings > Battery
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    FUELGAUGE_POWER_USAGE_SUMMARY = 54;
+
+    // OPEN: Settings > Home
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    HOME = 55;
+
+    // OPEN: Settings > Security > SIM card lock settings
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    ICC_LOCK = 56;
+
+    // OPEN: Settings > Language & input
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    INPUTMETHOD_LANGUAGE = 57;
+
+    // OPEN: Settings > Language & input > Physical keyboard
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    INPUTMETHOD_KEYBOARD = 58;
+
+    // OPEN: Settings > Language & input > Spell checker
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    INPUTMETHOD_SPELL_CHECKERS = 59;
+
+    // OBSOLETE
+    INPUTMETHOD_SUBTYPE_ENABLER = 60;
+
+    // OPEN: Settings > Language & input > Personal dictionary
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    INPUTMETHOD_USER_DICTIONARY = 61;
+
+    // OPEN: Settings > Language & input > Add word
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    INPUTMETHOD_USER_DICTIONARY_ADD_WORD = 62;
+
+    // OPEN: Settings > Location
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    LOCATION = 63;
+
+    // OPEN: Settings > Location > Location mode
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    LOCATION_MODE = 64;
+
+    // OPEN: Settings > Apps
+    // CATEGORY: SETTINGS
+    // OS: 6.0
+    MANAGE_APPLICATIONS = 65;
+
+    // OPEN: Settin
