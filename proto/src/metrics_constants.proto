@@ -2215,6 +2215,6 @@ message MetricsEvent {
     OWLSNEST = 420;
 
     //OwlsNest
-    OWLSNEST = 421;
+    OWL_TILE = 421;
   }
 }
