@@ -429,6 +429,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private int mShowCarrierLabel;
     boolean mExpandedVisible;
 
+    // Kronic logo
+    private boolean mKronicLogo;
+    private ImageView kronicLogo;
+
     private int mNavigationBarWindowState = WINDOW_STATE_SHOWING;
 
     private int mStatusBarHeaderHeight;
@@ -551,6 +555,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUSBAR_CLOCK_STYLE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_KRONIC_LOGO),
+                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -592,6 +599,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
             mBrightnessControl = Settings.System.getInt(
                     resolver, Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1;
+
+            mKronicLogo = Settings.System.getIntForUser(resolver,
+                    Settings.System.STATUS_BAR_KRONIC_LOGO, 0, mCurrentUserId) == 1;
+            showKronicLogo(mKronicLogo);
 
             mQsLayoutColumns = Settings.System.getIntForUser(resolver,
                     Settings.System.QS_LAYOUT_COLUMNS, 3, mCurrentUserId);
@@ -4057,6 +4068,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             }
         }, cancelAction, afterKeyguardGone);
     }
+
+    public void showKronicLogo(boolean show) {
+          if (mStatusBarView == null) return;
+          ContentResolver resolver = mContext.getContentResolver();
+          kronicLogo = (ImageView) mStatusBarView.findViewById(R.id.kronic_logo);
+          if (kronicLogo != null) {
+              kronicLogo.setVisibility(show ? (mKronicLogo ? View.VISIBLE : View.GONE) : View.GONE);
+          }
+     }
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override

@@ -4464,6 +4464,12 @@ public final class Settings {
         public static final String LOCK_SCREEN_VISIBLE_NOTIFICATIONS = "lock_screen_visible_notifications";
 
         /**
+         * Statusbar Kronic logo
+         * @hide
+         */
+        public static final String STATUS_BAR_KRONIC_LOGO = "status_bar_kronic_logo";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
