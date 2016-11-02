@@ -91,6 +91,26 @@ public class TunerActivity extends SettingsDrawerActivity implements
             setPreferenceScreen((PreferenceScreen) ((PreferenceFragment) getTargetFragment())
                     .getPreferenceScreen().findPreference(rootKey));
         }
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            setHasOptionsMenu(true);
+        }
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            switch (item.getItemId()) {
+                case android.R.id.home:
+                    getFragmentManager().popBackStack();
+                    return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
