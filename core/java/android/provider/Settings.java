@@ -3996,6 +3996,12 @@ public final class Settings {
         public static final String VOLUME_KEYS_CONTROL_MEDIA_STREAM = "volume_keys_control_media_stream";
 
         /**
+         * Change the delay when a screenshot is taken
+         * @hide
+         */
+        public static final String SCREENSHOT_DELAY = "screenshot_delay";
+
+        /**
          * Volume keys control cursor in text fields (default is 0)
          * 0 - Disabled
          * 1 - Volume up/down moves cursor left/right
