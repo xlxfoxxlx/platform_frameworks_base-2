@@ -134,4 +134,8 @@
     <!-- Play queue -->
     <string name="play_queue_extension">Show play queue</string>
 
+    <!-- Screenshot action -->
+    <string name="screenshot_abort_title">No screenshot taken</string>
+    <string name="screenshot_abort_text">Operation aborted</string>
+
 </resources>
