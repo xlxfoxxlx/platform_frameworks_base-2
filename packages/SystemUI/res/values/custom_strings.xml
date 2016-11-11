@@ -164,4 +164,7 @@
     <string name="status_bar_kronic_logo_title">AOSiP logo</string>
     <string name="status_bar_kronic_logo_summary">Enable to show logo on the left side of the statusbar</string>
 
+    <!-- Android Auto 2.0x QS tile -->
+    <string name="quick_settings_androidauto_label">Android Auto</string>
+
 </resources>
