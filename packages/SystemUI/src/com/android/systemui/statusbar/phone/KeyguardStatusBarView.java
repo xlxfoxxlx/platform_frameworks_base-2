@@ -77,6 +77,7 @@ public class KeyguardStatusBarView extends RelativeLayout
     private View mSystemIconsContainer;
 
     private boolean mShowBatteryText;
+    private boolean mForceBatteryText;
 
     private ContentObserver mObserver = new ContentObserver(new Handler()) {
         public void onChange(boolean selfChange, Uri uri) {
@@ -211,7 +212,7 @@ public class KeyguardStatusBarView extends RelativeLayout
             mKeyguardClock.setVisibility(View.GONE);
         }
         mBatteryLevel.setVisibility(
-                mBatteryCharging || mShowBatteryText ? View.VISIBLE : View.GONE);
+                mBatteryCharging || mShowBatteryText || mForceBatteryText ? View.VISIBLE : View.GONE);
         }
 
         if (mCarrierLabel != null) {
@@ -398,6 +399,8 @@ public class KeyguardStatusBarView extends RelativeLayout
     public void onTuningChanged(String key, String newValue) {
         if (key.equals(STATUS_BAR_SHOW_BATTERY_PERCENT)) {
             mShowBatteryText = newValue == null ? false : Integer.parseInt(newValue) == 2;
+            mForceBatteryText = Settings.Secure.getInt(getContext().getContentResolver(),
+                    Settings.Secure.STATUS_BAR_BATTERY_STYLE, 0) == 6 ? true : false;
             updateVisibilities();
         }
     }
