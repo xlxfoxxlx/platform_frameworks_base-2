@@ -34,4 +34,7 @@
     <!-- QS edit page background color -->
     <color name="qs_edit_item_decoration_bg">@*android:color/secondary_device_default_settings</color>
 
+    <!-- Background color of edit overflow -->
+    <color name="qs_edit_overflow_bg">@*android:color/primary_device_default_dark</color>
+
 </resources>
