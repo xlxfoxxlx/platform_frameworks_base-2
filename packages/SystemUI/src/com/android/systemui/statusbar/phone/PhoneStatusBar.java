@@ -561,11 +561,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                         0, UserHandle.USER_CURRENT) == 1;
                 initTickerView();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.QS_ROWS_LANDSCAPE))
-                || uri.equals(Settings.System.getUriFor(
-                    Settings.System.QS_COLUMNS_LANDSCAPE))) {
-                updateQSRowsColumnsLandscape();
-            } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.QS_ROWS_PORTRAIT))
                     || uri.equals(Settings.System.getUriFor(
                     Settings.System.QS_ROWS_LANDSCAPE))) {
@@ -2387,13 +2382,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mBackdropFront.setImageDrawable(null);
         }
     };
-
-    private void updateQSRowsColumnsLandscape() {
-        Resources res = mContext.getResources();
-        if (res.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            updateResources();
-        }
-    }
 
     /**
      * Refresh or remove lockscreen artwork from media metadata or the lockscreen wallpaper.
