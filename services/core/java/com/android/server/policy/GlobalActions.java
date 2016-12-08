@@ -20,6 +20,7 @@ import com.android.internal.app.AlertController;
 import com.android.internal.app.AlertController.AlertParams;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
+import com.android.internal.policy.EmergencyAffordanceManager;
 import com.android.internal.telephony.TelephonyIntents;
 import com.android.internal.telephony.TelephonyProperties;
 import com.android.internal.R;
@@ -27,7 +28,6 @@ import com.android.internal.widget.LockPatternUtils;
 
 import android.app.ActivityManager;
 import android.app.ActivityManagerNative;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -131,6 +131,8 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     String mActions;
     private int mScreenshotDelay;
 
+    private final EmergencyAffordanceManager mEmergencyAffordanceManager;
+
     /**
      * @param context everything needs a context :(
      */
@@ -172,6 +174,8 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
 
         // Set the initial status of airplane mode toggle
         mAirplaneState = getUpdatedAirplaneToggleState();
+
+        mEmergencyAffordanceManager = new EmergencyAffordanceManager(context);
     }
 
     /**
@@ -396,6 +400,10 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             }
             // Add here so we don't add more than one.
             addedKeys.add(actionKey);
+        }
+
+        if (mEmergencyAffordanceManager.needsEmergencyAffordance()) {
+            mItems.add(getEmergencyAction());
         }
 
         mAdapter = new MyAdapter();
@@ -645,6 +653,26 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 Intent intent = new Intent(Settings.ACTION_SETTINGS);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 mContext.startActivity(intent);
+            }
+
+            @Override
+            public boolean showDuringKeyguard() {
+                return true;
+            }
+
+            @Override
+            public boolean showBeforeProvisioning() {
+                return true;
+            }
+        };
+    }
+
+    private Action getEmergencyAction() {
+        return new SinglePressAction(com.android.internal.R.drawable.emergency_icon,
+                R.string.global_action_emergency) {
+            @Override
+            public void onPress() {
+                mEmergencyAffordanceManager.performEmergencyCall();
             }
 
             @Override
