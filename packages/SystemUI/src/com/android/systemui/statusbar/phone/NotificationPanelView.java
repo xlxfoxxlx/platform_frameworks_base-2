@@ -2737,7 +2737,7 @@ public class NotificationPanelView extends PanelView implements
             mDoubleTapToSleepAnywhere = Settings.System.getIntForUser(resolver,
                     Settings.System.DOUBLE_TAP_SLEEP_ANYWHERE, 0, UserHandle.USER_CURRENT) == 1;
             mDozeWakeupDoubleTap = Settings.System.getIntForUser(resolver,
-                    Settings.System.DOUBLE_TAP_WAKE_DOZE, 0, UserHandle.USER_CURRENT) == 1;
+                    Settings.System.DOUBLE_TAP_WAKE_DOZE, 1, UserHandle.USER_CURRENT) == 1;
             mBlurScale = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.BLUR_SCALE_PREFERENCE_KEY, 10);
             mBlurRadius = Settings.System.getInt(mContext.getContentResolver(),
