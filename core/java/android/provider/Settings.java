@@ -4165,6 +4165,12 @@ public final class Settings {
         public static final String QS_ROWS_PORTRAIT = "qs_rows_portrait";
 
         /**
+         * Dynamic Navbar Switch
+         * @hide
+         */
+        public static final String NAV_BAR_DYNAMIC = "nav_bar_dynamic";
+
+        /**
          * Number of rows used for the Quick Settings (landscape)
          *
          * @hide
