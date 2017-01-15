@@ -185,9 +185,6 @@
     <uses-permission android:name="android.permission.READ_NFC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_NFC_SETTINGS" />
 
-    <!-- Media Queue -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
     <!-- DU permissions -->
     <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
