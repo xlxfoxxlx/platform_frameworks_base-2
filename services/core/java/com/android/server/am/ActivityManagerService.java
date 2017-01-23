@@ -11787,7 +11787,7 @@ public final class ActivityManagerService extends ActivityManagerNative
     }
 
     boolean isSleepingLocked() {
-        return mSleeping && mWakefulness == PowerManagerInternal.WAKEFULNESS_ASLEEP;
+        return mSleeping;
     }
 
     void onWakefulnessChanged(int wakefulness) {
